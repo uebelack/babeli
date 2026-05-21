@@ -1,0 +1,12 @@
+{
+    "name": "babeli",
+    "private": true,
+    "workspaces": ["packages/*"],
+    "scripts": {
+      "lint:check": "bun --filter \"*\" lint:check",
+      "lint:fix": "bun --filter \"*\" lint:fix",
+      "format:check": "bun --filter \"*\" format:check",
+      "format:fix": "bun --filter \"*\" format:fix",
+      "test": "bun --filter \"*\" test"
+    }
+  }

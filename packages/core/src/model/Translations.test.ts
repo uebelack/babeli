@@ -78,4 +78,75 @@ describe("Translations", () => {
   it("should return translation for value", () => {
     expect(translations.getTranslationForValue("Yes", "en", "de")).toBe("Ja");
   });
+
+  it("should return undefined for value with unknown source language", () => {
+    expect(
+      translations.getTranslationForValue("Yes", "xx", "de"),
+    ).toBeUndefined();
+  });
+
+  it("should return undefined for value with unknown target language", () => {
+    expect(
+      translations.getTranslationForValue("Yes", "en", "xx"),
+    ).toBeUndefined();
+  });
+
+  it("should return undefined for value with no matching key in target", () => {
+    expect(
+      translations.getTranslationForValue(
+        "Die angeforderte Ressource wurde nicht gefunden.",
+        "de",
+        "en",
+      ),
+    ).toBe("The requested resource was not found.");
+    // "common.button.perhaps" has no "en" translation, so lookup should return undefined
+    expect(
+      translations.getTranslationForValue("Vielleicht", "de", "en"),
+    ).toBeUndefined();
+  });
+
+  it("should create from key-language map", () => {
+    const map = new Map<string, Map<string, string>>();
+    map.set(
+      "greeting",
+      new Map([
+        ["en", "Hello"],
+        ["de", "Hallo"],
+      ]),
+    );
+    map.set(
+      "farewell",
+      new Map([
+        ["en", "Bye"],
+        ["de", "Tschüss"],
+      ]),
+    );
+
+    const t = Translations.fromKeyLanguageMap(map);
+    expect(t.getTranslation("greeting", "en")).toBe("Hello");
+    expect(t.getTranslation("greeting", "de")).toBe("Hallo");
+    expect(t.getTranslation("farewell", "en")).toBe("Bye");
+    expect(t.getLanguages()).toEqual(["de", "en"]);
+  });
+
+  it("should return translations map for language", () => {
+    const deMap = translations.getTranslationsMapForLanguage("de");
+    expect(deMap).toBeDefined();
+    expect(deMap!.get("common.button.yes")).toBe("Ja");
+    expect(translations.getTranslationsMapForLanguage("xx")).toBeUndefined();
+  });
+
+  it("should return translations for language", () => {
+    const deTranslations = translations.getTranslationsForLanguage("de");
+    expect(deTranslations.length).toBe(3);
+    expect(deTranslations.every((t) => t.language === "de")).toBe(true);
+    expect(translations.getTranslationsForLanguage("xx")).toEqual([]);
+  });
+
+  it("should add translation to existing key with new language", () => {
+    translations.add("common.button.perhaps", "en", "Perhaps");
+    expect(translations.getTranslation("common.button.perhaps", "en")).toBe(
+      "Perhaps",
+    );
+  });
 });

@@ -1,0 +1,28 @@
+{
+  "name": "@babeli/ollama",
+  "module": "src/index.ts",
+  "type": "module",
+  "private": true,
+  "dependencies": {
+    "@babeli/core": "workspace:*",
+    "@langchain/ollama": "^0.2.3"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/bun": "latest",
+    "@types/jest": "^30.0.0",
+    "eslint": "^10.4.0",
+    "prettier": "^3.8.3",
+    "typescript-eslint": "^8.59.4"
+  },
+  "scripts": {
+    "test": "bun test",
+    "lint:check": "eslint . --ext .ts",
+    "lint:fix": "eslint . --ext .ts --fix",
+    "format:check": "prettier --check .",
+    "format:fix": "prettier --write ."
+  },
+  "peerDependencies": {
+    "typescript": "^6.0.3"
+  }
+}

@@ -14,7 +14,9 @@ export interface Configuration {
   model?: string;
   apiKey?: string;
   apiUrl?: string;
+  actions?: string[];
   charset?: BufferEncoding;
   debug?: boolean;
+  skip?: boolean;
   loggingProvider?: LoggingProvider;
 }

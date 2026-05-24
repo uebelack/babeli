@@ -1,3 +1,4 @@
+export { Babeli } from "./Babeli";
 export * from "./actions";
 export * from "./ai";
 export * from "./errors";

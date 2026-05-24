@@ -3,10 +3,19 @@
   "module": "src/index.ts",
   "type": "module",
   "private": true,
+  "bin": {
+    "babeli": "src/cli/main.ts"
+  },
+  "dependencies": {
+    "@clack/prompts": "^0.11.0",
+    "@langchain/core": "^1.1.48",
+    "yargs": "^17.7.2"
+  },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@types/bun": "latest",
     "@types/jest": "^30.0.0",
+    "@types/yargs": "^17.0.33",
     "eslint": "^10.4.0",
     "prettier": "^3.8.3",
     "typescript-eslint": "^8.59.4"
@@ -20,8 +29,5 @@
   },
   "peerDependencies": {
     "typescript": "^6.0.3"
-  },
-  "dependencies": {
-    "@langchain/core": "^1.1.48"
   }
 }

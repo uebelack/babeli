@@ -109,6 +109,7 @@ export class MissingAction implements Action {
     return {
       file: translationFile.file,
       translations: translations.getTranslations(),
+      nested: translationFile.nested,
     };
   }
 
@@ -160,6 +161,7 @@ export class MissingAction implements Action {
       language: tf.language,
       file: tf.file,
       translations: translations.getTranslationsForLanguage(tf.language),
+      nested: tf.nested,
     }));
   }
 

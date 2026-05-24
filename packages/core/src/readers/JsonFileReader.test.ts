@@ -121,4 +121,114 @@ describe("JsonFileReader", () => {
       expect(result.translations).toHaveLength(1);
     });
   });
+
+  describe("nested single language", () => {
+    it("should detect and flatten nested single language file", () => {
+      const filePath = path.join(tmpDir, "en.json");
+      fs.writeFileSync(
+        filePath,
+        JSON.stringify({
+          common: {
+            title: "Hello",
+            subtitle: "World",
+          },
+          home: {
+            teaser: "Welcome",
+          },
+        }),
+      );
+
+      const reader = new JsonFileReader(config);
+      const result = reader.readSingleLanguageFile("en", filePath);
+
+      expect(result.nested).toBe(true);
+      expect(result.translations).toHaveLength(3);
+      expect(
+        result.translations.find((t) => t.key === "common.title")?.value,
+      ).toBe("Hello");
+      expect(
+        result.translations.find((t) => t.key === "common.subtitle")?.value,
+      ).toBe("World");
+      expect(
+        result.translations.find((t) => t.key === "home.teaser")?.value,
+      ).toBe("Welcome");
+    });
+
+    it("should set nested to false for flat single language file", () => {
+      const filePath = path.join(tmpDir, "en.json");
+      fs.writeFileSync(
+        filePath,
+        JSON.stringify({ hello: "Hello", bye: "Bye" }),
+      );
+
+      const reader = new JsonFileReader(config);
+      const result = reader.readSingleLanguageFile("en", filePath);
+
+      expect(result.nested).toBe(false);
+    });
+
+    it("should handle deeply nested single language file", () => {
+      const filePath = path.join(tmpDir, "en.json");
+      fs.writeFileSync(
+        filePath,
+        JSON.stringify({
+          a: { b: { c: "deep" } },
+        }),
+      );
+
+      const reader = new JsonFileReader(config);
+      const result = reader.readSingleLanguageFile("en", filePath);
+
+      expect(result.nested).toBe(true);
+      expect(result.translations.find((t) => t.key === "a.b.c")?.value).toBe(
+        "deep",
+      );
+    });
+  });
+
+  describe("nested multi language", () => {
+    it("should detect and flatten nested multi language file", () => {
+      const filePath = path.join(tmpDir, "translations.json");
+      fs.writeFileSync(
+        filePath,
+        JSON.stringify({
+          common: {
+            title: { en: "Hello", de: "Hallo" },
+            subtitle: { en: "World", de: "Welt" },
+          },
+        }),
+      );
+
+      const reader = new JsonFileReader(config);
+      const result = reader.readMultiLanguageFile(filePath);
+
+      expect(result.nested).toBe(true);
+      expect(result.translations).toHaveLength(4);
+
+      const enTitle = result.translations.find(
+        (t) => t.key === "common.title" && t.language === "en",
+      );
+      expect(enTitle?.value).toBe("Hello");
+
+      const deSubtitle = result.translations.find(
+        (t) => t.key === "common.subtitle" && t.language === "de",
+      );
+      expect(deSubtitle?.value).toBe("Welt");
+    });
+
+    it("should not set nested for flat multi language file", () => {
+      const filePath = path.join(tmpDir, "translations.json");
+      fs.writeFileSync(
+        filePath,
+        JSON.stringify({
+          greeting: { en: "Hello", de: "Hallo" },
+        }),
+      );
+
+      const reader = new JsonFileReader(config);
+      const result = reader.readMultiLanguageFile(filePath);
+
+      expect(result.nested).toBeUndefined();
+    });
+  });
 });

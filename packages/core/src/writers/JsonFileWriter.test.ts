@@ -162,4 +162,90 @@ describe("JsonFileWriter", () => {
       );
     });
   });
+
+  describe("nested writeSingleLanguageFile", () => {
+    it("should write nested JSON when nested is true", () => {
+      const filePath = path.join(tmpDir, "en.json");
+      const file: SingleLanguageTranslationFile = {
+        language: "en",
+        file: filePath,
+        translations: [
+          { language: "en", key: "common.title", value: "Hello" },
+          { language: "en", key: "common.subtitle", value: "World" },
+          { language: "en", key: "home.teaser", value: "Welcome" },
+        ],
+        nested: true,
+      };
+
+      const writer = new JsonFileWriter(config);
+      writer.writeSingleLanguageFile(file);
+
+      const content = JSON.parse(fs.readFileSync(filePath, "utf-8"));
+      expect(content).toEqual({
+        common: { title: "Hello", subtitle: "World" },
+        home: { teaser: "Welcome" },
+      });
+    });
+
+    it("should write flat JSON when nested is false", () => {
+      const filePath = path.join(tmpDir, "en.json");
+      const file: SingleLanguageTranslationFile = {
+        language: "en",
+        file: filePath,
+        translations: [{ language: "en", key: "common.title", value: "Hello" }],
+        nested: false,
+      };
+
+      const writer = new JsonFileWriter(config);
+      writer.writeSingleLanguageFile(file);
+
+      const content = JSON.parse(fs.readFileSync(filePath, "utf-8"));
+      expect(content).toEqual({ "common.title": "Hello" });
+    });
+  });
+
+  describe("nested writeMultiLanguageFile", () => {
+    it("should write nested JSON when nested is true", () => {
+      const filePath = path.join(tmpDir, "translations.json");
+      const file: MultiLanguageTranslationFile = {
+        file: filePath,
+        translations: [
+          { language: "en", key: "common.title", value: "Hello" },
+          { language: "de", key: "common.title", value: "Hallo" },
+          { language: "en", key: "home.teaser", value: "Welcome" },
+          { language: "de", key: "home.teaser", value: "Willkommen" },
+        ],
+        nested: true,
+      };
+
+      const writer = new JsonFileWriter(config);
+      writer.writeMultiLanguageFile(file);
+
+      const content = JSON.parse(fs.readFileSync(filePath, "utf-8"));
+      expect(content).toEqual({
+        common: { title: { en: "Hello", de: "Hallo" } },
+        home: { teaser: { en: "Welcome", de: "Willkommen" } },
+      });
+    });
+
+    it("should write flat JSON when nested is false", () => {
+      const filePath = path.join(tmpDir, "translations.json");
+      const file: MultiLanguageTranslationFile = {
+        file: filePath,
+        translations: [
+          { language: "en", key: "common.title", value: "Hello" },
+          { language: "de", key: "common.title", value: "Hallo" },
+        ],
+        nested: false,
+      };
+
+      const writer = new JsonFileWriter(config);
+      writer.writeMultiLanguageFile(file);
+
+      const content = JSON.parse(fs.readFileSync(filePath, "utf-8"));
+      expect(content).toEqual({
+        "common.title": { en: "Hello", de: "Hallo" },
+      });
+    });
+  });
 });

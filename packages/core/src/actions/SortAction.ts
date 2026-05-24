@@ -54,6 +54,7 @@ export class SortAction implements Action {
       translations: [...tf.translations].sort((a, b) =>
         a.key.localeCompare(b.key),
       ),
+      nested: tf.nested,
     }));
   }
 
@@ -95,6 +96,7 @@ export class SortAction implements Action {
       translations: [...translationFile.translations].sort((a, b) =>
         a.key.localeCompare(b.key),
       ),
+      nested: translationFile.nested,
     };
   }
 }

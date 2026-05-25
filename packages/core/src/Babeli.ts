@@ -19,6 +19,9 @@ export const Babeli = {
   async validate(configuration: Configuration): Promise<TranslationError[]> {
     const log = new Logger(configuration);
 
+    log.debug("Executable: " + process.execPath);
+    log.debug("Script: " + process.argv[1]);
+
     if (skip(configuration)) {
       log.info("Babeli is skipped.");
       return [];
@@ -55,6 +58,9 @@ export const Babeli = {
 
   async update(configuration: Configuration): Promise<void> {
     const log = new Logger(configuration);
+
+    log.debug("Executable: " + process.execPath);
+    log.debug("Script: " + process.argv[1]);
 
     if (skip(configuration)) {
       log.info("Babeli is skipped.");

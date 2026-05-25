@@ -48,6 +48,14 @@
         "typescript": "^6.0.3",
       },
     },
+    "packages/example": {
+      "name": "@babeli/example",
+      "version": "0.0.1",
+      "dependencies": {
+        "@babeli/anthropic": "workspace:*",
+        "@babeli/core": "workspace:*",
+      },
+    },
     "packages/ollama": {
       "name": "@babeli/ollama",
       "version": "0.0.1",
@@ -80,6 +88,8 @@
     "@babeli/anthropic": ["@babeli/anthropic@workspace:packages/anthropic"],
 
     "@babeli/core": ["@babeli/core@workspace:packages/core"],
+
+    "@babeli/example": ["@babeli/example@workspace:packages/example"],
 
     "@babeli/ollama": ["@babeli/ollama@workspace:packages/ollama"],
 

@@ -1,0 +1,14 @@
+{
+  "name": "@babeli/example",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "babeli:validate": "babeli validate",
+    "babeli:update": "babeli update"
+  },
+  "dependencies": {
+    "@babeli/core": "workspace:*",
+    "@babeli/anthropic": "workspace:*"
+  }
+}

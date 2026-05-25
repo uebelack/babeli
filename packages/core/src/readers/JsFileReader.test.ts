@@ -29,12 +29,12 @@ describe("JsFileReader", () => {
       expect(result.language).toBe("en");
       expect(result.file).toBe(filePath);
       expect(result.translations).toHaveLength(2);
-      expect(
-        result.translations.find((t) => t.key === "greeting")?.value,
-      ).toBe("Hello");
-      expect(
-        result.translations.find((t) => t.key === "farewell")?.value,
-      ).toBe("Goodbye");
+      expect(result.translations.find((t) => t.key === "greeting")?.value).toBe(
+        "Hello",
+      );
+      expect(result.translations.find((t) => t.key === "farewell")?.value).toBe(
+        "Goodbye",
+      );
     });
 
     it("should read a nested single language JS file", async () => {

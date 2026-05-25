@@ -1,0 +1,17 @@
+{
+  "button": {
+    "no": "Non",
+    "perhaps": "Peut-être",
+    "yes": "Oui"
+  },
+  "error": {
+    "message": {
+      "notfound": "La ressource demandée n'a pas été trouvée.",
+      "unauthorized": "Vous n'êtes pas autorisé à accéder à cette ressource."
+    }
+  },
+  "greeting": {
+    "evening": "Bonsoir",
+    "morning": "Bonjour"
+  }
+}

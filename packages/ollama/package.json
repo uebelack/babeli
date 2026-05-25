@@ -1,6 +1,7 @@
 {
   "name": "@babeli/ollama",
   "version": "0.0.1",
+  "main": "dist/index.js",
   "module": "src/index.ts",
   "license": "MIT",
   "type": "module",

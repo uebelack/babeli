@@ -61,12 +61,11 @@ export class SortAction implements Action {
   validateMultiLanguageFile(
     translationFile: MultiLanguageTranslationFile,
   ): TranslationError[] {
-    const sorted = [...translationFile.translations].sort((a, b) =>
-      a.key.localeCompare(b.key),
-    );
-    const isSorted = translationFile.translations.every(
-      (t, i) => t.key === sorted[i]!.key,
-    );
+    const uniqueKeys = [
+      ...new Set(translationFile.translations.map((t) => t.key)),
+    ];
+    const sortedKeys = [...uniqueKeys].sort((a, b) => a.localeCompare(b));
+    const isSorted = uniqueKeys.every((key, i) => key === sortedKeys[i]);
 
     if (!isSorted) {
       return [
@@ -93,8 +92,9 @@ export class SortAction implements Action {
   ): Promise<MultiLanguageTranslationFile> {
     return {
       file: translationFile.file,
-      translations: [...translationFile.translations].sort((a, b) =>
-        a.key.localeCompare(b.key),
+      translations: [...translationFile.translations].sort(
+        (a, b) =>
+          a.key.localeCompare(b.key) || a.language.localeCompare(b.language),
       ),
       nested: translationFile.nested,
     };

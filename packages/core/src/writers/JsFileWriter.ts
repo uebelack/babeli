@@ -42,8 +42,7 @@ function formatValue(value: unknown, indent: number): string {
     if (entries.length === 0) return "{}";
 
     const lines = entries.map(
-      ([key, val]) =>
-        `${innerPad}${key}: ${formatValue(val, indent + 1)}`,
+      ([key, val]) => `${innerPad}${key}: ${formatValue(val, indent + 1)}`,
     );
     return `{\n${lines.join(",\n")},\n${pad}}`;
   }

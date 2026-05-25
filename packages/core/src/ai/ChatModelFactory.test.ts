@@ -1,4 +1,4 @@
-import { ChatModelFactory } from "./ChatModelFactory";
+import { ChatModelFactory, extractProvider } from "./ChatModelFactory";
 import { ConfigurationError } from "../errors/ConfigurationError";
 import type { BaseChatModel } from "@langchain/core/language_models/chat_models";
 import type { ChatModelProvider } from "./ChatModelProvider";
@@ -82,5 +82,52 @@ describe("ChatModelFactory", () => {
     await expect(ChatModelFactory.createChatModel(config)).rejects.toThrow(
       ConfigurationError,
     );
+  });
+});
+
+describe("extractProvider", () => {
+  it("should extract provider by class name", () => {
+    class TestChatModelProvider {
+      create() {
+        return {} as BaseChatModel;
+      }
+    }
+
+    const module = { TestChatModelProvider };
+    const provider = extractProvider(
+      module,
+      "TestChatModelProvider",
+      "@babeli/test",
+    );
+
+    expect(provider).toBeInstanceOf(TestChatModelProvider);
+  });
+
+  it("should fall back to default export", () => {
+    class DefaultProvider {
+      create() {
+        return {} as BaseChatModel;
+      }
+    }
+
+    const module = { default: DefaultProvider };
+    const provider = extractProvider(
+      module,
+      "NonExistentClassName",
+      "@babeli/test",
+    );
+
+    expect(provider).toBeInstanceOf(DefaultProvider);
+  });
+
+  it("should throw ConfigurationError when no matching export found", () => {
+    const module = { something: "else" };
+
+    expect(() =>
+      extractProvider(module, "TestChatModelProvider", "@babeli/test"),
+    ).toThrow(ConfigurationError);
+    expect(() =>
+      extractProvider(module, "TestChatModelProvider", "@babeli/test"),
+    ).toThrow("does not export TestChatModelProvider or a default export");
   });
 });

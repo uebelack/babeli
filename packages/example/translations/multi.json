@@ -1,0 +1,28 @@
+{
+  "button": {
+    "no": {
+      "en": "No",
+      "de": "Nein",
+      "fr": "Non"
+    },
+    "perhaps": {
+      "en": "Perhaps",
+      "de": "Vielleicht",
+      "fr": "Peut-être"
+    },
+    "yes": {
+      "en": "Yes",
+      "de": "Ja",
+      "fr": "Oui"
+    }
+  },
+  "error": {
+    "message": {
+      "notfound": {
+        "en": "The requested resource was not found.",
+        "de": "Die angeforderte Ressource wurde nicht gefunden.",
+        "fr": "La ressource demandée n'a pas été trouvée."
+      }
+    }
+  }
+}

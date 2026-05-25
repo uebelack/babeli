@@ -4,3 +4,4 @@ export { JsonFileWriter } from "./JsonFileWriter";
 export { JsFileWriter } from "./JsFileWriter";
 export { TsFileWriter } from "./TsFileWriter";
 export { YamlFileWriter } from "./YamlFileWriter";
+export { StringsFileWriter } from "./StringsFileWriter";

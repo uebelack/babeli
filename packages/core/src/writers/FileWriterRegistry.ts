@@ -6,6 +6,7 @@ import { JsonFileWriter } from "./JsonFileWriter";
 import { JsFileWriter } from "./JsFileWriter";
 import { TsFileWriter } from "./TsFileWriter";
 import { YamlFileWriter } from "./YamlFileWriter";
+import { StringsFileWriter } from "./StringsFileWriter";
 
 type FileWriterFactory = (configuration: Configuration) => FileWriter;
 
@@ -19,6 +20,7 @@ function registerDefaults(): void {
   fileWriters.set("mts", (config) => new TsFileWriter(config));
   fileWriters.set("yaml", (config) => new YamlFileWriter(config));
   fileWriters.set("yml", (config) => new YamlFileWriter(config));
+  fileWriters.set("strings", (config) => new StringsFileWriter(config));
 }
 
 registerDefaults();

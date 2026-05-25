@@ -4,3 +4,4 @@ export { JsonFileReader } from "./JsonFileReader";
 export { JsFileReader } from "./JsFileReader";
 export { TsFileReader } from "./TsFileReader";
 export { YamlFileReader } from "./YamlFileReader";
+export { StringsFileReader } from "./StringsFileReader";

@@ -1,0 +1,13 @@
+"button.no" = "No";
+
+"button.perhaps" = "Perhaps";
+
+"button.yes" = "Yes";
+
+"error.message.notfound" = "The requested resource was not found.";
+
+"error.message.unauthorized" = "You are not authorized to access this resource.";
+
+"greeting.evening" = "Good evening";
+
+"greeting.morning" = "Good morning";

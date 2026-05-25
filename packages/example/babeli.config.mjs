@@ -67,4 +67,14 @@ export default [
     baseLanguage: "en",
     modelProvider: "anthropic",
   },
+
+  // Xcode .strings files
+  {
+    files: [
+      { language: "en", file: "translations/en.lproj/Localizable.strings" },
+      { language: "de", file: "translations/de.lproj/Localizable.strings" },
+    ],
+    baseLanguage: "en",
+    modelProvider: "anthropic",
+  },
 ];

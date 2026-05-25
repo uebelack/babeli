@@ -50,4 +50,21 @@ export default [
     baseLanguage: "en",
     modelProvider: "anthropic",
   },
+
+  // Single-language YAML files
+  {
+    files: [
+      { language: "en", file: "translations/en.yaml" },
+      { language: "de", file: "translations/de.yaml" },
+    ],
+    baseLanguage: "en",
+    modelProvider: "anthropic",
+  },
+
+  // Multi-language YAML file
+  {
+    file: "translations/multi.yaml",
+    baseLanguage: "en",
+    modelProvider: "anthropic",
+  },
 ];

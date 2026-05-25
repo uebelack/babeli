@@ -67,8 +67,8 @@ describe("FileWriterRegistry", () => {
       JsonFileWriter,
     );
 
-    const yamlConfig: Configuration = { file: "/project/data.yaml" };
-    expect(() => FileWriterRegistry.getFileWriter(yamlConfig)).toThrow(
+    const xmlConfig: Configuration = { file: "/project/data.xml" };
+    expect(() => FileWriterRegistry.getFileWriter(xmlConfig)).toThrow(
       ConfigurationError,
     );
   });

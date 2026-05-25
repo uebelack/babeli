@@ -75,8 +75,8 @@ describe("FileReaderRegistry", () => {
       JsonFileReader,
     );
 
-    const yamlConfig: Configuration = { file: "/project/data.yaml" };
-    expect(() => FileReaderRegistry.getFileReader(yamlConfig)).toThrow(
+    const xmlConfig: Configuration = { file: "/project/data.xml" };
+    expect(() => FileReaderRegistry.getFileReader(xmlConfig)).toThrow(
       ConfigurationError,
     );
   });

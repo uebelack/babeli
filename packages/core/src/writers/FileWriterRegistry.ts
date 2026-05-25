@@ -5,6 +5,7 @@ import { ConfigurationError } from "../errors/ConfigurationError";
 import { JsonFileWriter } from "./JsonFileWriter";
 import { JsFileWriter } from "./JsFileWriter";
 import { TsFileWriter } from "./TsFileWriter";
+import { YamlFileWriter } from "./YamlFileWriter";
 
 type FileWriterFactory = (configuration: Configuration) => FileWriter;
 
@@ -16,6 +17,8 @@ function registerDefaults(): void {
   fileWriters.set("mjs", (config) => new JsFileWriter(config));
   fileWriters.set("ts", (config) => new TsFileWriter(config));
   fileWriters.set("mts", (config) => new TsFileWriter(config));
+  fileWriters.set("yaml", (config) => new YamlFileWriter(config));
+  fileWriters.set("yml", (config) => new YamlFileWriter(config));
 }
 
 registerDefaults();

@@ -5,6 +5,7 @@ import { ConfigurationError } from "../errors/ConfigurationError";
 import { JsonFileReader } from "./JsonFileReader";
 import { JsFileReader } from "./JsFileReader";
 import { TsFileReader } from "./TsFileReader";
+import { YamlFileReader } from "./YamlFileReader";
 
 type FileReaderFactory = (configuration: Configuration) => FileReader;
 
@@ -16,6 +17,8 @@ function registerDefaults(): void {
   fileReaders.set("mjs", () => new JsFileReader());
   fileReaders.set("ts", () => new TsFileReader());
   fileReaders.set("mts", () => new TsFileReader());
+  fileReaders.set("yaml", (config) => new YamlFileReader(config));
+  fileReaders.set("yml", (config) => new YamlFileReader(config));
 }
 
 registerDefaults();

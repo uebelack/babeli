@@ -34,20 +34,17 @@ describe("StringsFileReader", () => {
       expect(result.language).toBe("en");
       expect(result.file).toBe(filePath);
       expect(result.translations).toHaveLength(2);
-      expect(
-        result.translations.find((t) => t.key === "greeting")?.value,
-      ).toBe("Hello");
-      expect(
-        result.translations.find((t) => t.key === "farewell")?.value,
-      ).toBe("Goodbye");
+      expect(result.translations.find((t) => t.key === "greeting")?.value).toBe(
+        "Hello",
+      );
+      expect(result.translations.find((t) => t.key === "farewell")?.value).toBe(
+        "Goodbye",
+      );
     });
 
     it("should handle escaped quotes in values", () => {
       const filePath = path.join(tmpDir, "Localizable.strings");
-      fs.writeFileSync(
-        filePath,
-        '"msg" = "He said \\"hello\\"";\n',
-      );
+      fs.writeFileSync(filePath, '"msg" = "He said \\"hello\\"";\n');
 
       const reader = new StringsFileReader(config);
       const result = reader.readSingleLanguageFile("en", filePath);
@@ -57,10 +54,7 @@ describe("StringsFileReader", () => {
 
     it("should handle escaped backslashes", () => {
       const filePath = path.join(tmpDir, "Localizable.strings");
-      fs.writeFileSync(
-        filePath,
-        '"path" = "C:\\\\Users\\\\test";\n',
-      );
+      fs.writeFileSync(filePath, '"path" = "C:\\\\Users\\\\test";\n');
 
       const reader = new StringsFileReader(config);
       const result = reader.readSingleLanguageFile("en", filePath);
@@ -70,10 +64,7 @@ describe("StringsFileReader", () => {
 
     it("should handle newline escape sequences in values", () => {
       const filePath = path.join(tmpDir, "Localizable.strings");
-      fs.writeFileSync(
-        filePath,
-        '"msg" = "line1\\nline2";\n',
-      );
+      fs.writeFileSync(filePath, '"msg" = "line1\\nline2";\n');
 
       const reader = new StringsFileReader(config);
       const result = reader.readSingleLanguageFile("en", filePath);
@@ -99,10 +90,7 @@ describe("StringsFileReader", () => {
 
     it("should handle format specifiers like %@", () => {
       const filePath = path.join(tmpDir, "Localizable.strings");
-      fs.writeFileSync(
-        filePath,
-        '"plan" = "%@ - Monthly";\n',
-      );
+      fs.writeFileSync(filePath, '"plan" = "%@ - Monthly";\n');
 
       const reader = new StringsFileReader(config);
       const result = reader.readSingleLanguageFile("en", filePath);

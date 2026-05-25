@@ -68,9 +68,7 @@ describe("YamlFileWriter", () => {
       const file: SingleLanguageTranslationFile = {
         language: "en",
         file: filePath,
-        translations: [
-          { language: "en", key: "common.title", value: "Hello" },
-        ],
+        translations: [{ language: "en", key: "common.title", value: "Hello" }],
         nested: false,
       };
 

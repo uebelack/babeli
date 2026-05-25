@@ -6,4 +6,8 @@
 
 "error.message.notfound" = "Die angeforderte Ressource wurde nicht gefunden.";
 
+"error.message.unauthorized" = "Sie sind nicht berechtigt, auf diese Ressource zuzugreifen.";
+
+"greeting.evening" = "Guten Abend";
+
 "greeting.morning" = "Guten Morgen";

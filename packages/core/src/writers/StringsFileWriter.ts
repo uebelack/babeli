@@ -28,7 +28,8 @@ export class StringsFileWriter implements FileWriter {
     try {
       this.ensureDirectory(file.file);
       const lines = file.translations.map(
-        (t) => `"${escapeStringsValue(t.key)}" = "${escapeStringsValue(t.value)}";`,
+        (t) =>
+          `"${escapeStringsValue(t.key)}" = "${escapeStringsValue(t.value)}";`,
       );
       const content = lines.join("\n\n") + "\n";
       fs.writeFileSync(

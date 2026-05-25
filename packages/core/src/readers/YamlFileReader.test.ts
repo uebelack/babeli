@@ -30,12 +30,12 @@ describe("YamlFileReader", () => {
       expect(result.file).toBe(filePath);
       expect(result.nested).toBe(false);
       expect(result.translations).toHaveLength(2);
-      expect(
-        result.translations.find((t) => t.key === "greeting")?.value,
-      ).toBe("Hello");
-      expect(
-        result.translations.find((t) => t.key === "farewell")?.value,
-      ).toBe("Goodbye");
+      expect(result.translations.find((t) => t.key === "greeting")?.value).toBe(
+        "Hello",
+      );
+      expect(result.translations.find((t) => t.key === "farewell")?.value).toBe(
+        "Goodbye",
+      );
     });
 
     it("should read a nested single language YAML file", () => {
@@ -44,8 +44,8 @@ describe("YamlFileReader", () => {
         filePath,
         [
           "button:",
-          "  yes: \"Yes\"",
-          "  no: \"No\"",
+          '  yes: "Yes"',
+          '  no: "No"',
           "  perhaps: Perhaps",
           "error:",
           "  message:",
@@ -92,18 +92,15 @@ describe("YamlFileReader", () => {
 
     it("should handle deeply nested YAML", () => {
       const filePath = path.join(tmpDir, "en.yaml");
-      fs.writeFileSync(
-        filePath,
-        ["a:", "  b:", "    c: deep"].join("\n"),
-      );
+      fs.writeFileSync(filePath, ["a:", "  b:", "    c: deep"].join("\n"));
 
       const reader = new YamlFileReader(config);
       const result = reader.readSingleLanguageFile("en", filePath);
 
       expect(result.nested).toBe(true);
-      expect(
-        result.translations.find((t) => t.key === "a.b.c")?.value,
-      ).toBe("deep");
+      expect(result.translations.find((t) => t.key === "a.b.c")?.value).toBe(
+        "deep",
+      );
     });
   });
 
@@ -115,8 +112,8 @@ describe("YamlFileReader", () => {
         [
           "en:",
           "  button:",
-          "    yes: \"Yes\"",
-          "    no: \"No\"",
+          '    yes: "Yes"',
+          '    no: "No"',
           "de:",
           "  button:",
           "    yes: Ja",
@@ -179,10 +176,7 @@ describe("YamlFileReader", () => {
 
     it("should use default charset when not configured", () => {
       const filePath = path.join(tmpDir, "translations.yaml");
-      fs.writeFileSync(
-        filePath,
-        ["en:", "  hello: Hello", ""].join("\n"),
-      );
+      fs.writeFileSync(filePath, ["en:", "  hello: Hello", ""].join("\n"));
 
       const reader = new YamlFileReader({});
       const result = reader.readMultiLanguageFile(filePath);

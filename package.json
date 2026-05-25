@@ -3,11 +3,13 @@
     "version": "0.0.1",
     "workspaces": ["packages/*"],
     "scripts": {
-        "publish": "bun --filter \"*\" publish",
-        "lint:check": "bun --filter \"*\" lint:check",
-        "lint:fix": "bun --filter \"*\" lint:fix",
+        "build": "bun --filter \"*\" build",
         "format:check": "bun --filter \"*\" format:check",
         "format:fix": "bun --filter \"*\" format:fix",
+        "integration": "bun --filter ./packages/example integration",
+        "lint:check": "bun --filter \"*\" lint:check",
+        "lint:fix": "bun --filter \"*\" lint:fix",
+        "publish": "bun --filter \"*\" publish",
         "test": "bun --filter \"*\" test"
     }
 }

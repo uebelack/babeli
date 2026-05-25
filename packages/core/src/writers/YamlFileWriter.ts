@@ -49,11 +49,7 @@ export class YamlFileWriter implements FileWriter {
       }
       const obj = file.nested ? unflattenObject(flat) : flat;
       const yaml = YAML.stringify(obj, { indent: 2 });
-      fs.writeFileSync(
-        file.file,
-        yaml,
-        this.configuration.charset ?? "utf-8",
-      );
+      fs.writeFileSync(file.file, yaml, this.configuration.charset ?? "utf-8");
     } catch (e) {
       if (e instanceof FileWriterError) throw e;
       throw new FileWriterError(file.file, e);
@@ -77,11 +73,7 @@ export class YamlFileWriter implements FileWriter {
       }
 
       const yaml = YAML.stringify(obj, { indent: 2 });
-      fs.writeFileSync(
-        file.file,
-        yaml,
-        this.configuration.charset ?? "utf-8",
-      );
+      fs.writeFileSync(file.file, yaml, this.configuration.charset ?? "utf-8");
     } catch (e) {
       if (e instanceof FileWriterError) throw e;
       throw new FileWriterError(file.file, e);

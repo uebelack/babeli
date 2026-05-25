@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "integration": "bun run ../core/src/cli/main.ts validate && bun run ../core/src/cli/main.ts update && bun run ../core/src/cli/main.ts validate",
     "babeli:validate": "babeli validate",
     "babeli:update": "babeli update"
   },

@@ -35,7 +35,7 @@ describe("Babeli", () => {
   });
 
   describe("validate", () => {
-    it("should return errors for unsorted multi-language file", () => {
+    it("should return errors for unsorted multi-language file", async () => {
       const filePath = path.join(tmpDir, "translations.json");
       fs.writeFileSync(
         filePath,
@@ -51,12 +51,12 @@ describe("Babeli", () => {
         loggingProvider: createSilentLoggingProvider(),
       };
 
-      const errors = Babeli.validate(config);
+      const errors = await Babeli.validate(config);
       expect(errors.length).toBeGreaterThan(0);
       expect(errors[0]!.action).toBe("sort");
     });
 
-    it("should return no errors for sorted multi-language file", () => {
+    it("should return no errors for sorted multi-language file", async () => {
       const filePath = path.join(tmpDir, "translations.json");
       fs.writeFileSync(
         filePath,
@@ -72,11 +72,11 @@ describe("Babeli", () => {
         loggingProvider: createSilentLoggingProvider(),
       };
 
-      const errors = Babeli.validate(config);
+      const errors = await Babeli.validate(config);
       expect(errors).toEqual([]);
     });
 
-    it("should validate single-language files", () => {
+    it("should validate single-language files", async () => {
       const enPath = path.join(tmpDir, "en.json");
       const dePath = path.join(tmpDir, "de.json");
       fs.writeFileSync(enPath, JSON.stringify({ hello: "Hello", bye: "Bye" }));
@@ -91,13 +91,13 @@ describe("Babeli", () => {
         loggingProvider: createSilentLoggingProvider(),
       };
 
-      const errors = Babeli.validate(config);
+      const errors = await Babeli.validate(config);
       expect(errors.length).toBe(1);
       expect(errors[0]!.action).toBe("missing");
       expect(errors[0]!.language).toBe("de");
     });
 
-    it("should skip when BABELI_SKIP env is true", () => {
+    it("should skip when BABELI_SKIP env is true", async () => {
       process.env.BABELI_SKIP = "true";
 
       const config: Configuration = {
@@ -105,22 +105,22 @@ describe("Babeli", () => {
         loggingProvider: createSilentLoggingProvider(),
       };
 
-      const errors = Babeli.validate(config);
+      const errors = await Babeli.validate(config);
       expect(errors).toEqual([]);
     });
 
-    it("should skip when config.skip is true", () => {
+    it("should skip when config.skip is true", async () => {
       const config: Configuration = {
         file: "/nonexistent.json",
         skip: true,
         loggingProvider: createSilentLoggingProvider(),
       };
 
-      const errors = Babeli.validate(config);
+      const errors = await Babeli.validate(config);
       expect(errors).toEqual([]);
     });
 
-    it("should use all registered actions when none specified", () => {
+    it("should use all registered actions when none specified", async () => {
       const filePath = path.join(tmpDir, "translations.json");
       fs.writeFileSync(
         filePath,
@@ -134,7 +134,7 @@ describe("Babeli", () => {
         loggingProvider: createSilentLoggingProvider(),
       };
 
-      const errors = Babeli.validate(config);
+      const errors = await Babeli.validate(config);
       expect(errors).toEqual([]);
     });
   });

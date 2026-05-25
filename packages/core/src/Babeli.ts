@@ -16,7 +16,7 @@ function getActions(configuration: Configuration): string[] {
 }
 
 export const Babeli = {
-  validate(configuration: Configuration): TranslationError[] {
+  async validate(configuration: Configuration): Promise<TranslationError[]> {
     const log = new Logger(configuration);
 
     if (skip(configuration)) {
@@ -29,7 +29,7 @@ export const Babeli = {
     const actions = getActions(configuration);
 
     if (configuration.file) {
-      const translationFile = fileReader.readMultiLanguageFile(
+      const translationFile = await fileReader.readMultiLanguageFile(
         configuration.file,
       );
       for (const actionName of actions) {
@@ -39,8 +39,10 @@ export const Babeli = {
     }
 
     if (configuration.files?.length) {
-      const translationFiles = configuration.files.map((f) =>
-        fileReader.readSingleLanguageFile(f.language, f.file),
+      const translationFiles = await Promise.all(
+        configuration.files.map((f) =>
+          fileReader.readSingleLanguageFile(f.language, f.file),
+        ),
       );
       for (const actionName of actions) {
         const action = ActionRegistry.createAction(actionName, configuration);
@@ -74,7 +76,7 @@ export const Babeli = {
     const actions = getActions(configuration);
 
     if (configuration.file) {
-      let translationFile = fileReader.readMultiLanguageFile(
+      let translationFile = await fileReader.readMultiLanguageFile(
         configuration.file,
       );
       for (const actionName of actions) {
@@ -85,8 +87,10 @@ export const Babeli = {
     }
 
     if (configuration.files?.length) {
-      let translationFiles = configuration.files.map((f) =>
-        fileReader.readSingleLanguageFile(f.language, f.file),
+      let translationFiles = await Promise.all(
+        configuration.files.map((f) =>
+          fileReader.readSingleLanguageFile(f.language, f.file),
+        ),
       );
       for (const actionName of actions) {
         const action = ActionRegistry.createAction(actionName, configuration);

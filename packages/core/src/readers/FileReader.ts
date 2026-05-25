@@ -5,7 +5,9 @@ export interface FileReader {
   readSingleLanguageFile(
     language: string,
     filePath: string,
-  ): SingleLanguageTranslationFile;
+  ): SingleLanguageTranslationFile | Promise<SingleLanguageTranslationFile>;
 
-  readMultiLanguageFile(filePath: string): MultiLanguageTranslationFile;
+  readMultiLanguageFile(
+    filePath: string,
+  ): MultiLanguageTranslationFile | Promise<MultiLanguageTranslationFile>;
 }

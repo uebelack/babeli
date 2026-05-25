@@ -29,7 +29,10 @@ export async function validate(args: CliArgs): Promise<number> {
     const s = p.spinner();
     s.start("Validating translation files...");
 
-    const errors = configurations.flatMap((config) => Babeli.validate(config));
+    const results = await Promise.all(
+      configurations.map((config) => Babeli.validate(config)),
+    );
+    const errors = results.flat();
 
     if (errors.length === 0) {
       s.stop("Validation complete.");

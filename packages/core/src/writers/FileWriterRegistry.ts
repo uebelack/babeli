@@ -3,6 +3,7 @@ import type { FileWriter } from "./FileWriter";
 import type { Configuration } from "../Configuration";
 import { ConfigurationError } from "../errors/ConfigurationError";
 import { JsonFileWriter } from "./JsonFileWriter";
+import { JsFileWriter } from "./JsFileWriter";
 
 type FileWriterFactory = (configuration: Configuration) => FileWriter;
 
@@ -10,6 +11,8 @@ const fileWriters = new Map<string, FileWriterFactory>();
 
 function registerDefaults(): void {
   fileWriters.set("json", (config) => new JsonFileWriter(config));
+  fileWriters.set("js", (config) => new JsFileWriter(config));
+  fileWriters.set("mjs", (config) => new JsFileWriter(config));
 }
 
 registerDefaults();

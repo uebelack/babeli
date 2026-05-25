@@ -3,6 +3,7 @@ import type { FileReader } from "./FileReader";
 import type { Configuration } from "../Configuration";
 import { ConfigurationError } from "../errors/ConfigurationError";
 import { JsonFileReader } from "./JsonFileReader";
+import { JsFileReader } from "./JsFileReader";
 
 type FileReaderFactory = (configuration: Configuration) => FileReader;
 
@@ -10,6 +11,8 @@ const fileReaders = new Map<string, FileReaderFactory>();
 
 function registerDefaults(): void {
   fileReaders.set("json", (config) => new JsonFileReader(config));
+  fileReaders.set("js", () => new JsFileReader());
+  fileReaders.set("mjs", () => new JsFileReader());
 }
 
 registerDefaults();

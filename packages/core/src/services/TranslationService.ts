@@ -91,7 +91,7 @@ Output only the best translation, never multiple alternatives.
 Do not include the original text in the output.
 Output only the translated text, nothing else.`;
 
-    const chatModel = ChatModelFactory.createChatModel(this.configuration);
+    const chatModel = await ChatModelFactory.createChatModel(this.configuration);
     const response = await chatModel.invoke([
       new SystemMessage(systemMessageContent),
       new HumanMessage(value),

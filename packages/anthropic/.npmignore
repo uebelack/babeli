@@ -1,0 +1,4 @@
+coverage
+.claude
+.cursor
+eslint.config.mjs

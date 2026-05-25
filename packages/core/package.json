@@ -1,10 +1,11 @@
 {
   "name": "@babeli/core",
+  "version": "0.0.1",
   "module": "src/index.ts",
+  "license": "MIT",
   "type": "module",
-  "private": true,
   "bin": {
-    "babeli": "src/cli/main.ts"
+    "babeli": "dist/main.js"
   },
   "dependencies": {
     "@clack/prompts": "^0.11.0",
@@ -21,11 +22,14 @@
     "typescript-eslint": "^8.59.4"
   },
   "scripts": {
-    "test": "bun test",
+    "build": "bun build src/cli/main.ts --outdir dist --target node ",
+    "format:check": "prettier --check .",
+    "format:fix": "prettier --write .",
     "lint:check": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
-    "format:check": "prettier --check .",
-    "format:fix": "prettier --write ."
+    "prepublish": "bun run build",
+    "publish": "bun publish --access public --production",
+    "test": "bun test"
   },
   "peerDependencies": {
     "typescript": "^6.0.3"

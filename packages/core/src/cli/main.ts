@@ -1,4 +1,4 @@
-#!/usr/bin/env bun
+#!/usr/bin/env node
 import { hideBin } from "yargs/helpers";
 import { run } from "./index";
 

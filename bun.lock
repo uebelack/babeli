@@ -7,9 +7,9 @@
     },
     "packages/anthropic": {
       "name": "@babeli/anthropic",
+      "version": "0.0.1",
       "dependencies": {
-        "@babeli/core": "workspace:*",
-        "@langchain/anthropic": "^0.3.22",
+        "@langchain/anthropic": "^0.3.34",
       },
       "devDependencies": {
         "@eslint/js": "^10.0.1",
@@ -20,13 +20,15 @@
         "typescript-eslint": "^8.59.4",
       },
       "peerDependencies": {
+        "@babeli/core": "workspace:*",
         "typescript": "^6.0.3",
       },
     },
     "packages/core": {
       "name": "@babeli/core",
+      "version": "0.0.1",
       "bin": {
-        "babeli": "src/cli/index.ts",
+        "babeli": "dist/main.js",
       },
       "dependencies": {
         "@clack/prompts": "^0.11.0",
@@ -48,9 +50,9 @@
     },
     "packages/ollama": {
       "name": "@babeli/ollama",
+      "version": "0.0.1",
       "dependencies": {
-        "@babeli/core": "workspace:*",
-        "@langchain/ollama": "^0.2.3",
+        "@langchain/ollama": "^0.2.4",
       },
       "devDependencies": {
         "@eslint/js": "^10.0.1",
@@ -61,6 +63,7 @@
         "typescript-eslint": "^8.59.4",
       },
       "peerDependencies": {
+        "@babeli/core": "workspace:*",
         "typescript": "^6.0.3",
       },
     },

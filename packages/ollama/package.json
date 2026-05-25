@@ -1,11 +1,11 @@
 {
   "name": "@babeli/ollama",
+  "version": "0.0.1",
   "module": "src/index.ts",
+  "license": "MIT",
   "type": "module",
-  "private": true,
   "dependencies": {
-    "@babeli/core": "workspace:*",
-    "@langchain/ollama": "^0.2.3"
+    "@langchain/ollama": "^0.2.4"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
@@ -16,13 +16,17 @@
     "typescript-eslint": "^8.59.4"
   },
   "scripts": {
-    "test": "bun test",
+    "build": "bun build src/index.ts --outdir dist --target node",
+    "format:check": "prettier --check .",
+    "format:fix": "prettier --write .",
     "lint:check": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
-    "format:check": "prettier --check .",
-    "format:fix": "prettier --write ."
+    "prepublish": "bun run build",
+    "publish": "bun publish --access public --production",
+    "test": "bun test"
   },
   "peerDependencies": {
+    "@babeli/core": "workspace:*",
     "typescript": "^6.0.3"
   }
 }

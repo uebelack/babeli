@@ -16,26 +16,26 @@ describe("ChatModelFactory", () => {
     delete process.env.BABELI_MODEL_PROVIDER;
   });
 
-  it("should create chat model from registered provider", () => {
+  it("should create chat model from registered provider", async () => {
     ChatModelFactory.registerProvider("test", mockProvider);
     const config: Configuration = { modelProvider: "test" };
 
-    const result = ChatModelFactory.createChatModel(config);
+    const result = await ChatModelFactory.createChatModel(config);
 
     expect(result).toBe(mockChatModel);
   });
 
-  it("should return cached chat model on subsequent calls", () => {
+  it("should return cached chat model on subsequent calls", async () => {
     ChatModelFactory.registerProvider("test", mockProvider);
     const config: Configuration = { modelProvider: "test" };
 
-    const first = ChatModelFactory.createChatModel(config);
-    const second = ChatModelFactory.createChatModel(config);
+    const first = await ChatModelFactory.createChatModel(config);
+    const second = await ChatModelFactory.createChatModel(config);
 
     expect(first).toBe(second);
   });
 
-  it("should prefer BABELI_MODEL_PROVIDER env var over configuration", () => {
+  it("should prefer BABELI_MODEL_PROVIDER env var over configuration", async () => {
     const envChatModel = {} as BaseChatModel;
     const envProvider: ChatModelProvider = {
       create: () => envChatModel,
@@ -45,41 +45,41 @@ describe("ChatModelFactory", () => {
     process.env.BABELI_MODEL_PROVIDER = "env-provider";
 
     const config: Configuration = { modelProvider: "config-provider" };
-    const result = ChatModelFactory.createChatModel(config);
+    const result = await ChatModelFactory.createChatModel(config);
 
     expect(result).toBe(envChatModel);
   });
 
-  it("should throw ConfigurationError when no model provider is configured", () => {
+  it("should throw ConfigurationError when no model provider is configured", async () => {
     const config: Configuration = {};
 
-    expect(() => ChatModelFactory.createChatModel(config)).toThrow(
+    await expect(ChatModelFactory.createChatModel(config)).rejects.toThrow(
       ConfigurationError,
     );
-    expect(() => ChatModelFactory.createChatModel(config)).toThrow(
+    await expect(ChatModelFactory.createChatModel(config)).rejects.toThrow(
       "No model provider configured",
     );
   });
 
-  it("should throw ConfigurationError when provider is not found", () => {
+  it("should throw ConfigurationError when provider is not found and package is not installed", async () => {
     const config: Configuration = { modelProvider: "nonexistent" };
 
-    expect(() => ChatModelFactory.createChatModel(config)).toThrow(
+    await expect(ChatModelFactory.createChatModel(config)).rejects.toThrow(
       ConfigurationError,
     );
-    expect(() => ChatModelFactory.createChatModel(config)).toThrow(
-      "Model provider not found: nonexistent",
+    await expect(ChatModelFactory.createChatModel(config)).rejects.toThrow(
+      /could not be loaded/,
     );
   });
 
-  it("should clear cached model and providers on reset", () => {
+  it("should clear cached model and providers on reset", async () => {
     ChatModelFactory.registerProvider("test", mockProvider);
     const config: Configuration = { modelProvider: "test" };
-    ChatModelFactory.createChatModel(config);
+    await ChatModelFactory.createChatModel(config);
 
     ChatModelFactory.reset();
 
-    expect(() => ChatModelFactory.createChatModel(config)).toThrow(
+    await expect(ChatModelFactory.createChatModel(config)).rejects.toThrow(
       ConfigurationError,
     );
   });

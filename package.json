@@ -1,12 +1,13 @@
 {
     "name": "babeli",
-    "private": true,
+    "version": "0.0.1",
     "workspaces": ["packages/*"],
     "scripts": {
-      "lint:check": "bun --filter \"*\" lint:check",
-      "lint:fix": "bun --filter \"*\" lint:fix",
-      "format:check": "bun --filter \"*\" format:check",
-      "format:fix": "bun --filter \"*\" format:fix",
-      "test": "bun --filter \"*\" test"
+        "publish": "bun --filter \"*\" publish",
+        "lint:check": "bun --filter \"*\" lint:check",
+        "lint:fix": "bun --filter \"*\" lint:fix",
+        "format:check": "bun --filter \"*\" format:check",
+        "format:fix": "bun --filter \"*\" format:fix",
+        "test": "bun --filter \"*\" test"
     }
-  }
+}

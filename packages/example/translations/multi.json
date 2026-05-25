@@ -1,26 +1,26 @@
 {
   "button": {
     "no": {
-      "en": "No",
       "de": "Nein",
+      "en": "No",
       "fr": "Non"
     },
     "perhaps": {
-      "en": "Perhaps",
       "de": "Vielleicht",
+      "en": "Perhaps",
       "fr": "Peut-être"
     },
     "yes": {
-      "en": "Yes",
       "de": "Ja",
+      "en": "Yes",
       "fr": "Oui"
     }
   },
   "error": {
     "message": {
       "notfound": {
-        "en": "The requested resource was not found.",
         "de": "Die angeforderte Ressource wurde nicht gefunden.",
+        "en": "The requested resource was not found.",
         "fr": "La ressource demandée n'a pas été trouvée."
       }
     }

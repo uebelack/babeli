@@ -4,6 +4,7 @@ import type { Configuration } from "../Configuration";
 import { ConfigurationError } from "../errors/ConfigurationError";
 import { JsonFileWriter } from "./JsonFileWriter";
 import { JsFileWriter } from "./JsFileWriter";
+import { TsFileWriter } from "./TsFileWriter";
 
 type FileWriterFactory = (configuration: Configuration) => FileWriter;
 
@@ -13,6 +14,8 @@ function registerDefaults(): void {
   fileWriters.set("json", (config) => new JsonFileWriter(config));
   fileWriters.set("js", (config) => new JsFileWriter(config));
   fileWriters.set("mjs", (config) => new JsFileWriter(config));
+  fileWriters.set("ts", (config) => new TsFileWriter(config));
+  fileWriters.set("mts", (config) => new TsFileWriter(config));
 }
 
 registerDefaults();

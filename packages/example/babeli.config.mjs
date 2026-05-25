@@ -33,4 +33,21 @@ export default [
     baseLanguage: "en",
     modelProvider: "anthropic",
   },
+
+  // Single-language TypeScript files
+  {
+    files: [
+      { language: "en", file: "translations/en.ts" },
+      { language: "de", file: "translations/de.ts" },
+    ],
+    baseLanguage: "en",
+    modelProvider: "anthropic",
+  },
+
+  // Multi-language TypeScript file
+  {
+    file: "translations/multi.ts",
+    baseLanguage: "en",
+    modelProvider: "anthropic",
+  },
 ];

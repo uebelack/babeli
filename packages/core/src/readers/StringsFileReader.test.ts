@@ -52,17 +52,7 @@ describe("StringsFileReader", () => {
       expect(result.translations[0]?.value).toBe('He said "hello"');
     });
 
-    it("should handle escaped backslashes", () => {
-      const filePath = path.join(tmpDir, "Localizable.strings");
-      fs.writeFileSync(filePath, '"path" = "C:\\\\Users\\\\test";\n');
-
-      const reader = new StringsFileReader(config);
-      const result = reader.readSingleLanguageFile("en", filePath);
-
-      expect(result.translations[0]?.value).toBe("C:\\Users\\test");
-    });
-
-    it("should handle newline escape sequences in values", () => {
+    it("should preserve escape sequences like \\n", () => {
       const filePath = path.join(tmpDir, "Localizable.strings");
       fs.writeFileSync(filePath, '"msg" = "line1\\nline2";\n');
 
@@ -70,6 +60,21 @@ describe("StringsFileReader", () => {
       const result = reader.readSingleLanguageFile("en", filePath);
 
       expect(result.translations[0]?.value).toBe("line1\\nline2");
+    });
+
+    it("should preserve backslashes in escape sequences", () => {
+      const filePath = path.join(tmpDir, "Localizable.strings");
+      fs.writeFileSync(
+        filePath,
+        '"msg" = "privacy policy.\\n\\nDo you agree?";\n',
+      );
+
+      const reader = new StringsFileReader(config);
+      const result = reader.readSingleLanguageFile("en", filePath);
+
+      expect(result.translations[0]?.value).toBe(
+        "privacy policy.\\n\\nDo you agree?",
+      );
     });
 
     it("should handle dotted keys", () => {

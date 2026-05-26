@@ -4,20 +4,25 @@
   "workspaces": {
     "": {
       "name": "babeli",
+      "devDependencies": {
+        "@eslint/js": "^10.0.1",
+        "eslint": "^10.4.0",
+        "typescript": "^6.0.3",
+        "typescript-eslint": "^8.59.4",
+      },
     },
     "packages/anthropic": {
       "name": "@babeli/anthropic",
       "version": "0.0.1",
       "dependencies": {
         "@langchain/anthropic": "^0.3.34",
+        "@langchain/core": "^1.1.48",
       },
       "devDependencies": {
-        "@eslint/js": "^10.0.1",
+        "@babeli/core": "workspace:*",
         "@types/bun": "latest",
         "@types/jest": "^30.0.0",
-        "eslint": "^10.4.0",
         "prettier": "^3.8.3",
-        "typescript-eslint": "^8.59.4",
       },
       "peerDependencies": {
         "@babeli/core": "workspace:*",
@@ -37,13 +42,11 @@
         "yargs": "^17.7.2",
       },
       "devDependencies": {
-        "@eslint/js": "^10.0.1",
         "@types/bun": "latest",
         "@types/jest": "^30.0.0",
+        "@types/node": "^25.6.0",
         "@types/yargs": "^17.0.33",
-        "eslint": "^10.4.0",
         "prettier": "^3.8.3",
-        "typescript-eslint": "^8.59.4",
       },
       "peerDependencies": {
         "typescript": "^6.0.3",
@@ -61,15 +64,14 @@
       "name": "@babeli/ollama",
       "version": "0.0.1",
       "dependencies": {
+        "@langchain/core": "^1.1.48",
         "@langchain/ollama": "^0.2.4",
       },
       "devDependencies": {
-        "@eslint/js": "^10.0.1",
+        "@babeli/core": "workspace:*",
         "@types/bun": "latest",
         "@types/jest": "^30.0.0",
-        "eslint": "^10.4.0",
         "prettier": "^3.8.3",
-        "typescript-eslint": "^8.59.4",
       },
       "peerDependencies": {
         "@babeli/core": "workspace:*",

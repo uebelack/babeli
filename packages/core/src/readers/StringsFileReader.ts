@@ -10,8 +10,8 @@ function parseStringsFile(content: string): Map<string, string> {
   const regex = /^"((?:[^"\\]|\\.)*)"\s*=\s*"((?:[^"\\]|\\.)*)"\s*;/gm;
   let match;
   while ((match = regex.exec(content)) !== null) {
-    const key = match[1]!.replace(/\\"/g, '"').replace(/\\\\/g, "\\");
-    const value = match[2]!.replace(/\\"/g, '"').replace(/\\\\/g, "\\");
+    const key = match[1]!.replace(/\\"/g, '"');
+    const value = match[2]!.replace(/\\"/g, '"');
     result.set(key, value);
   }
   return result;

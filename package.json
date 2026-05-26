@@ -7,9 +7,15 @@
         "format:check": "bun --filter \"*\" format:check",
         "format:fix": "bun --filter \"*\" format:fix",
         "integration": "bun --filter ./packages/example integration",
-        "lint:check": "bun --filter \"*\" lint:check",
-        "lint:fix": "bun --filter \"*\" lint:fix",
+        "lint:check": "eslint \"packages/*/src/**/*.ts\"",
+        "lint:fix": "eslint \"packages/*/src/**/*.ts\" --fix",
         "publish": "bun --filter \"*\" publish",
         "test": "bun --filter \"*\" test"
+    },
+    "devDependencies": {
+        "@eslint/js": "^10.0.1",
+        "eslint": "^10.4.0",
+        "typescript": "^6.0.3",
+        "typescript-eslint": "^8.59.4"
     }
 }

@@ -1,3 +1,4 @@
+import { execSync } from "node:child_process";
 import { createRequire } from "node:module";
 import { join } from "node:path";
 import { pathToFileURL } from "node:url";
@@ -53,6 +54,20 @@ async function loadProvider(
     const resolvedPath = require.resolve(packageName);
     const module = await import(pathToFileURL(resolvedPath).href);
     logger.debug("Loaded model provider from CWD resolution: " + name);
+    return extractProvider(module, providerClassName, packageName);
+  } catch (error) {
+    if (error instanceof ConfigurationError) {
+      throw error;
+    }
+  }
+
+  // Try resolving from global node_modules
+  try {
+    const globalRoot = execSync("npm root -g", { encoding: "utf-8" }).trim();
+    const globalRequire = createRequire(join(globalRoot, "package.json"));
+    const resolvedPath = globalRequire.resolve(packageName);
+    const module = await import(pathToFileURL(resolvedPath).href);
+    logger.debug("Loaded model provider from global node_modules: " + name);
     return extractProvider(module, providerClassName, packageName);
   } catch (error) {
     if (error instanceof ConfigurationError) {

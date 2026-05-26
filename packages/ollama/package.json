@@ -6,22 +6,21 @@
   "license": "MIT",
   "type": "module",
   "dependencies": {
+    "@langchain/core": "^1.1.48",
     "@langchain/ollama": "^0.2.4"
   },
   "devDependencies": {
-    "@eslint/js": "^10.0.1",
+    "@babeli/core": "workspace:*",
     "@types/bun": "latest",
     "@types/jest": "^30.0.0",
-    "eslint": "^10.4.0",
-    "prettier": "^3.8.3",
-    "typescript-eslint": "^8.59.4"
+    "prettier": "^3.8.3"
   },
   "scripts": {
     "build": "bun build src/index.ts --outdir dist --target node",
     "format:check": "prettier --check .",
     "format:fix": "prettier --write .",
-    "lint:check": "eslint . --ext .ts",
-    "lint:fix": "eslint . --ext .ts --fix",
+    "lint:check": "eslint src",
+    "lint:fix": "eslint src --fix",
     "prepublish": "bun run build",
     "publish": "bun publish --access public --production",
     "test": "bun test"

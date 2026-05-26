@@ -59,13 +59,17 @@ describe("StringsFileWriter", () => {
       expect(content).toBe('"msg" = "He said \\"hello\\"";\n');
     });
 
-    it("should escape backslashes", () => {
+    it("should preserve escape sequences like \\n", () => {
       const filePath = path.join(tmpDir, "Localizable.strings");
       const file: SingleLanguageTranslationFile = {
         language: "en",
         file: filePath,
         translations: [
-          { language: "en", key: "path", value: "C:\\Users\\test" },
+          {
+            language: "en",
+            key: "msg",
+            value: "privacy policy.\\n\\nDo you agree?",
+          },
         ],
       };
 
@@ -73,7 +77,7 @@ describe("StringsFileWriter", () => {
       writer.writeSingleLanguageFile(file);
 
       const content = fs.readFileSync(filePath, "utf-8");
-      expect(content).toBe('"path" = "C:\\\\Users\\\\test";\n');
+      expect(content).toBe('"msg" = "privacy policy.\\n\\nDo you agree?";\n');
     });
 
     it("should create parent directories including .lproj", () => {

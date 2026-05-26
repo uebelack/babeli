@@ -7,7 +7,7 @@ import type { SingleLanguageTranslationFile } from "../model/SingleLanguageTrans
 import { FileWriterError } from "../errors/FileWriterError";
 
 function escapeStringsValue(value: string): string {
-  return value.replace(/\\/g, "\\\\").replace(/"/g, '\\"');
+  return value.replace(/"/g, '\\"');
 }
 
 export class StringsFileWriter implements FileWriter {

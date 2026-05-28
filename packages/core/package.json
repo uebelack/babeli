@@ -16,6 +16,7 @@
     "yaml": "^2.9.0"
   },
   "devDependencies": {
+    "@babeli/anthropic": "workspace:*",
     "@types/bun": "latest",
     "@types/jest": "^30.0.0",
     "@types/node": "^25.6.0",

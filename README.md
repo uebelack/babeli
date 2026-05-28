@@ -13,7 +13,7 @@ AI-powered translation management. Validate, sort, and automatically generate mi
 ## Quick Start
 
 ```bash
-bun add @babeli/core @babeli/anthropic
+bun add @babeli/cli @babeli/anthropic
 ```
 
 ```bash
@@ -44,17 +44,20 @@ bunx babeli update
 
 ## Packages
 
-| Package                                     | Description                                     |
-| ------------------------------------------- | ----------------------------------------------- |
-| [`@babeli/core`](./packages/core)           | Core library, CLI, and built-in readers/writers |
-| [`@babeli/anthropic`](./packages/anthropic) | Anthropic Claude model provider                 |
-| [`@babeli/ollama`](./packages/ollama)       | Ollama local LLM provider                       |
+| Package                                     | Description                                |
+| ------------------------------------------- | ------------------------------------------ |
+| [`@babeli/cli`](./packages/cli)             | Command-line interface                     |
+| [`@babeli/core`](./packages/core)           | Core library, readers/writers, and actions |
+| [`@babeli/anthropic`](./packages/anthropic) | Anthropic Claude model provider            |
+| [`@babeli/ollama`](./packages/ollama)       | Ollama local LLM provider                  |
 
 ## Supported File Formats
 
 JSON, JavaScript (`.js`/`.mjs`), TypeScript (`.ts`/`.mts`), YAML (`.yaml`/`.yml`), and Apple Strings (`.strings`).
 
-See the [`@babeli/core` README](./packages/core) for full documentation on file formats, CLI options, configuration, and programmatic usage.
+See the [`@babeli/cli` README](./packages/cli) for full documentation on CLI options, configuration, file formats, and usage.
+
+See the [`@babeli/core` README](./packages/core) for programmatic usage and extensibility.
 
 ## Development
 

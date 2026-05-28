@@ -2,8 +2,7 @@ import * as fs from "fs";
 import * as os from "os";
 import * as path from "path";
 import { run } from "./index";
-import { ChatModelFactory } from "../ai/ChatModelFactory";
-import { ActionRegistry } from "../actions/ActionRegistry";
+import { ChatModelFactory, ActionRegistry } from "@babeli/core";
 
 jest.mock("@clack/prompts", () => ({
   intro: () => {},

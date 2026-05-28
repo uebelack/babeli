@@ -72,6 +72,28 @@ describe("ChatModelFactory", () => {
     );
   });
 
+  it("should propagate ConfigurationError from extractProvider during dynamic loading", async () => {
+    // "core" resolves to @babeli/core which exists but doesn't export CoreChatModelProvider
+    const config: Configuration = { modelProvider: "core" };
+
+    await expect(ChatModelFactory.createChatModel(config)).rejects.toThrow(
+      ConfigurationError,
+    );
+    await expect(ChatModelFactory.createChatModel(config)).rejects.toThrow(
+      /does not export/,
+    );
+  });
+
+  it("should dynamically load a provider package when not registered", async () => {
+    const config: Configuration = {
+      modelProvider: "anthropic",
+      apiKey: "test-key",
+    };
+
+    const result = await ChatModelFactory.createChatModel(config);
+    expect(result).toBeDefined();
+  });
+
   it("should clear cached model and providers on reset", async () => {
     ChatModelFactory.registerProvider("test", mockProvider);
     const config: Configuration = { modelProvider: "test" };

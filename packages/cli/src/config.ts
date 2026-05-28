@@ -1,5 +1,4 @@
-import type { Configuration } from "../Configuration";
-import type { LanguageFileConfiguration } from "../Configuration";
+import type { Configuration, LanguageFileConfiguration } from "@babeli/core";
 
 export interface CliArgs {
   files?: string[];

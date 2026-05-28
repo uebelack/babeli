@@ -1,7 +1,6 @@
 export { Babeli } from "./Babeli";
 export * from "./actions";
 export * from "./ai";
-export { run } from "./cli";
 export * from "./errors";
 export * from "./logging";
 export * from "./model";

@@ -27,6 +27,22 @@ export function extractProvider(
   return new (ProviderClass as new () => ChatModelProvider)();
 }
 
+async function tryImport(
+  importFn: () => Promise<Record<string, unknown>>,
+  providerClassName: string,
+  packageName: string,
+): Promise<ChatModelProvider | undefined> {
+  try {
+    const module = await importFn();
+    return extractProvider(module, providerClassName, packageName);
+  } catch (error) {
+    if (error instanceof ConfigurationError) {
+      throw error;
+    }
+    return undefined;
+  }
+}
+
 async function loadProvider(
   configuration: Configuration,
   name: string,
@@ -36,42 +52,38 @@ async function loadProvider(
   const packageName = `@babeli/${name.toLowerCase()}`;
   const providerClassName = `${name.charAt(0).toUpperCase() + name.slice(1).toLowerCase()}ChatModelProvider`;
 
-  // Try direct import (works when package is a dependency of the running script)
-  try {
-    const module = await import(packageName);
-    logger.debug("Loaded model provider from direct import: " + name);
-    return extractProvider(module, providerClassName, packageName);
-  } catch (error) {
-    if (error instanceof ConfigurationError) {
-      throw error;
-    }
-  }
+  const strategies: Array<{
+    label: string;
+    importFn: () => Promise<Record<string, unknown>>;
+  }> = [
+    {
+      label: "direct import",
+      importFn: () => import(packageName),
+    },
+    {
+      label: "CWD resolution",
+      importFn: async () => {
+        const req = createRequire(join(process.cwd(), "package.json"));
+        return import(pathToFileURL(req.resolve(packageName)).href);
+      },
+    },
+    {
+      label: "global node_modules",
+      importFn: async () => {
+        const globalRoot = execSync("npm root -g", {
+          encoding: "utf-8",
+        }).trim();
+        const req = createRequire(join(globalRoot, "package.json"));
+        return import(pathToFileURL(req.resolve(packageName)).href);
+      },
+    },
+  ];
 
-  // Try resolving from CWD using createRequire (works when package is
-  // installed in the project that invokes the CLI)
-  try {
-    const require = createRequire(join(process.cwd(), "package.json"));
-    const resolvedPath = require.resolve(packageName);
-    const module = await import(pathToFileURL(resolvedPath).href);
-    logger.debug("Loaded model provider from CWD resolution: " + name);
-    return extractProvider(module, providerClassName, packageName);
-  } catch (error) {
-    if (error instanceof ConfigurationError) {
-      throw error;
-    }
-  }
-
-  // Try resolving from global node_modules
-  try {
-    const globalRoot = execSync("npm root -g", { encoding: "utf-8" }).trim();
-    const globalRequire = createRequire(join(globalRoot, "package.json"));
-    const resolvedPath = globalRequire.resolve(packageName);
-    const module = await import(pathToFileURL(resolvedPath).href);
-    logger.debug("Loaded model provider from global node_modules: " + name);
-    return extractProvider(module, providerClassName, packageName);
-  } catch (error) {
-    if (error instanceof ConfigurationError) {
-      throw error;
+  for (const { label, importFn } of strategies) {
+    const provider = await tryImport(importFn, providerClassName, packageName);
+    if (provider) {
+      logger.debug(`Loaded model provider from ${label}: ${name}`);
+      return provider;
     }
   }
 

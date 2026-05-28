@@ -1,5 +1,5 @@
-import { Babeli } from "../Babeli";
-import type { Configuration } from "../Configuration";
+import { Babeli } from "@babeli/core";
+import type { Configuration } from "@babeli/core";
 import * as p from "@clack/prompts";
 import type { CliArgs } from "./config";
 import { buildConfiguration } from "./config";

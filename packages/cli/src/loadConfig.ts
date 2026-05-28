@@ -1,6 +1,6 @@
 import * as path from "path";
 import * as fs from "fs";
-import type { Configuration } from "../Configuration";
+import type { Configuration } from "@babeli/core";
 
 export async function loadConfigFile(
   cwd: string = process.cwd(),

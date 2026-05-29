@@ -1,6 +1,6 @@
 {
   "name": "@babeli/anthropic",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "dist/index.js",
   "module": "src/index.ts",
   "license": "MIT",
@@ -22,7 +22,8 @@
     "lint:check": "eslint src",
     "lint:fix": "eslint src --fix",
     "prepublish": "bun run build",
-    "publish": "bun publish --access public --production"
+    "publish": "bun publish --access public --production",
+    "update": "bun update"
   },
   "peerDependencies": {
     "@babeli/core": "workspace:*",

@@ -1,6 +1,6 @@
 {
     "name": "babeli",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "workspaces": ["packages/*"],
     "scripts": {
         "build": "bun --filter \"*\" build",
@@ -9,12 +9,13 @@
         "integration": "bun --filter ./packages/example integration",
         "lint:check": "eslint \"packages/*/src/**/*.ts\"",
         "lint:fix": "eslint \"packages/*/src/**/*.ts\" --fix",
-        "publish": "bun --filter \"*\" publish"
+        "publish": "bun --filter \"*\" publish",
+        "update": "bun --filter \"*\" update"
     },
     "devDependencies": {
         "@eslint/js": "^10.0.1",
         "eslint": "^10.4.0",
         "typescript": "^6.0.3",
-        "typescript-eslint": "^8.59.4"
+        "typescript-eslint": "^8.60.0"
     }
 }

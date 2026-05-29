@@ -1,6 +1,6 @@
 {
   "name": "@babeli/cli",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "module": "src/index.ts",
   "types": "src/index.ts",
   "exports": {
@@ -22,8 +22,8 @@
   "devDependencies": {
     "@types/bun": "latest",
     "@types/jest": "^30.0.0",
-    "@types/node": "^25.6.0",
-    "@types/yargs": "^17.0.33",
+    "@types/node": "^25.9.1",
+    "@types/yargs": "^17.0.35",
     "prettier": "^3.8.3"
   },
   "scripts": {
@@ -33,7 +33,8 @@
     "lint:check": "eslint src",
     "lint:fix": "eslint src --fix",
     "prepublish": "bun run build",
-    "publish": "bun publish --access public --production"
+    "publish": "bun publish --access public --production",
+    "update": "bun update"
   },
   "peerDependencies": {
     "typescript": "^6.0.3"

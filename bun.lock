@@ -13,7 +13,7 @@
     },
     "packages/anthropic": {
       "name": "@babeli/anthropic",
-      "version": "0.0.2",
+      "version": "0.0.3",
       "dependencies": {
         "@langchain/anthropic": "^0.3.34",
         "@langchain/core": "^1.1.48",
@@ -31,7 +31,7 @@
     },
     "packages/cli": {
       "name": "@babeli/cli",
-      "version": "0.0.2",
+      "version": "0.0.3",
       "bin": {
         "babeli": "dist/main.js",
       },
@@ -53,7 +53,7 @@
     },
     "packages/core": {
       "name": "@babeli/core",
-      "version": "0.0.2",
+      "version": "0.0.3",
       "dependencies": {
         "@langchain/core": "^1.1.48",
         "yaml": "^2.9.0",
@@ -71,7 +71,7 @@
     },
     "packages/example": {
       "name": "@babeli/example",
-      "version": "0.0.2",
+      "version": "0.0.3",
       "dependencies": {
         "@babeli/anthropic": "workspace:*",
         "@babeli/core": "workspace:*",
@@ -79,7 +79,7 @@
     },
     "packages/ollama": {
       "name": "@babeli/ollama",
-      "version": "0.0.2",
+      "version": "0.0.3",
       "dependencies": {
         "@langchain/core": "^1.1.48",
         "@langchain/ollama": "^0.2.4",

@@ -33,8 +33,7 @@
     "lint:check": "eslint src",
     "lint:fix": "eslint src --fix",
     "prepublish": "bun run build",
-    "publish": "bun publish --access public --production",
-    "test": "bun test"
+    "publish": "bun publish --access public --production"
   },
   "peerDependencies": {
     "typescript": "^6.0.3"

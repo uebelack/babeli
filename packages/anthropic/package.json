@@ -1,6 +1,6 @@
 {
   "name": "@babeli/anthropic",
-  "version": "0.0.3",
+  "version": "1.0.0",
   "description": "Anthropic Claude model provider for babeli",
   "keywords": [
     "ai",

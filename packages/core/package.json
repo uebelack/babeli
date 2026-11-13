@@ -1,6 +1,6 @@
 {
   "name": "@babeli/core",
-  "version": "0.0.3",
+  "version": "1.0.0",
   "description": "Core library of babeli: translation file readers/writers and AI-powered actions",
   "keywords": [
     "ai",

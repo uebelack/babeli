@@ -86,11 +86,6 @@ Output only the translated text, nothing else.`;
       new HumanMessage(value),
     ]);
 
-    return typeof response.content === "string"
-      ? response.content
-      : response.content
-          .filter((block) => block.type === "text")
-          .map((block) => ("text" in block ? block.text : ""))
-          .join("");
+    return response.text;
   }
 }

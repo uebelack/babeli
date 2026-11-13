@@ -161,12 +161,13 @@ describe("TranslationService", () => {
 
   it("should handle non-string content blocks in response", async () => {
     const mockModel = {
-      invoke: async () => ({
-        content: [
-          { type: "text", text: "Hallo " },
-          { type: "text", text: "Welt" },
-        ],
-      }),
+      invoke: async () =>
+        new AIMessage({
+          content: [
+            { type: "text", text: "Hallo " },
+            { type: "text", text: "Welt" },
+          ],
+        }),
     } as unknown as BaseChatModel;
     const provider: ChatModelProvider = { create: () => mockModel };
     ChatModelFactory.registerProvider("test", provider);
@@ -175,5 +176,21 @@ describe("TranslationService", () => {
 
     const result = await emptyService.translate("Hello World", "en", "de");
     expect(result).toBe("Hallo Welt");
+  });
+
+  it("should join only the text blocks of a structured response", async () => {
+    const model = {
+      invoke: async () =>
+        new AIMessage({
+          content: [
+            { type: "text", text: "Guten " },
+            { type: "image_url", image_url: "https://example.com/x.png" },
+            { type: "text", text: "Morgen" },
+          ],
+        }),
+    } as unknown as BaseChatModel;
+    ChatModelFactory.registerProvider("test", { create: () => model });
+
+    await expect(service.translate("Good morning", "en", "de")).resolves.toBe("Guten Morgen");
   });
 });

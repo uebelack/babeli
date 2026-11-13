@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@langchain/core": "^1.4.0",
-    "@langchain/ollama": "^0.2.4"
+    "@langchain/ollama": "^1.3.0"
   },
   "devDependencies": {
     "@babeli/core": "workspace:*"

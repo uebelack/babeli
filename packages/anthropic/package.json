@@ -9,7 +9,7 @@
     "build": "bun build src/index.ts --outdir dist --target node"
   },
   "dependencies": {
-    "@langchain/anthropic": "^0.3.34",
+    "@langchain/anthropic": "^1.6.4",
     "@langchain/core": "^1.4.0"
   },
   "devDependencies": {

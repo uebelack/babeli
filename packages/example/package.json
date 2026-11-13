@@ -4,12 +4,13 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "integration": "node ../cli/dist/main.js validate && node ../cli/dist/main.js update && node ../cli/dist/main.js validate",
+    "integration": "babeli validate && babeli update && babeli validate",
     "babeli:validate": "babeli validate",
     "babeli:update": "babeli update"
   },
   "dependencies": {
     "@babeli/anthropic": "workspace:*",
+    "@babeli/cli": "workspace:*",
     "@babeli/core": "workspace:*"
   }
 }

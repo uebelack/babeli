@@ -12,7 +12,7 @@
   },
   "ignorePatterns": ["packages/example/translations/**"],
   "globals": {
-    "jest": "readonly",
+    "vi": "readonly",
     "describe": "readonly",
     "it": "readonly",
     "test": "readonly",

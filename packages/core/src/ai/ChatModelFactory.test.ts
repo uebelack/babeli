@@ -93,7 +93,7 @@ describe("ChatModelFactory", () => {
       path.join(pkgDir, "index.js"),
       "export class FixtureChatModelProvider { create() { return { fixture: true }; } }\n",
     );
-    const cwd = jest.spyOn(process, "cwd").mockReturnValue(dir);
+    const cwd = vi.spyOn(process, "cwd").mockReturnValue(dir);
 
     try {
       const config: Configuration = { modelProvider: "fixture" };

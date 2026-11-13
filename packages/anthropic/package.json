@@ -13,9 +13,7 @@
     "@langchain/core": "^1.1.48"
   },
   "devDependencies": {
-    "@babeli/core": "workspace:*",
-    "@types/bun": "latest",
-    "@types/jest": "^30.0.0"
+    "@babeli/core": "workspace:*"
   },
   "peerDependencies": {
     "@babeli/core": "workspace:*",

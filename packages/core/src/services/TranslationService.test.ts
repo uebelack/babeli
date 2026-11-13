@@ -37,7 +37,7 @@ describe("TranslationService", () => {
 
   it("should return existing translation without calling AI", async () => {
     const mockModel = createMockChatModel("should not be called");
-    const invokeSpy = jest.spyOn(mockModel, "invoke");
+    const invokeSpy = vi.spyOn(mockModel, "invoke");
     const provider: ChatModelProvider = { create: () => mockModel };
     ChatModelFactory.registerProvider("test", provider);
 

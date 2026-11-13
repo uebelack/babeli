@@ -13,9 +13,7 @@
     "@langchain/ollama": "^0.2.4"
   },
   "devDependencies": {
-    "@babeli/core": "workspace:*",
-    "@types/bun": "latest",
-    "@types/jest": "^30.0.0"
+    "@babeli/core": "workspace:*"
   },
   "peerDependencies": {
     "@babeli/core": "workspace:*",

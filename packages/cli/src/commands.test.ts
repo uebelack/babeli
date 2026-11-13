@@ -5,7 +5,7 @@ import { validate, update } from "./commands";
 import { ChatModelFactory, ActionRegistry } from "@babeli/core";
 
 // Silence @clack/prompts output during tests
-jest.mock("@clack/prompts", () => ({
+vi.mock("@clack/prompts", () => ({
   intro: () => {},
   outro: () => {},
   spinner: () => ({ start: () => {}, stop: () => {} }),

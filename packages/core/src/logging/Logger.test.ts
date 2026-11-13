@@ -61,7 +61,7 @@ describe("Logger", () => {
   it("should use default logging provider when none is configured", () => {
     const config: Configuration = {};
     const logger = new Logger(config);
-    const spy = jest.spyOn(console, "info").mockImplementation(() => {});
+    const spy = vi.spyOn(console, "info").mockImplementation(() => {});
     logger.info("test");
     expect(spy).toHaveBeenCalledWith("test");
     spy.mockRestore();

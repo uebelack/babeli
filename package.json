@@ -8,13 +8,15 @@
     "integration": "pnpm --filter @babeli/example integration",
     "lint:check": "oxlint",
     "lint:fix": "oxlint --fix",
-    "test": "bun test",
+    "test": "vitest run",
     "format:write": "oxfmt ."
   },
   "devDependencies": {
+    "@vitest/coverage-istanbul": "^5.1.0",
     "oxfmt": "^0.78.0",
     "oxlint": "^1.93.0",
-    "typescript": "^6.0.3"
+    "typescript": "^6.0.3",
+    "vitest": "^5.1.0"
   },
   "packageManager": "pnpm@12.18.0"
 }

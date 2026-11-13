@@ -4,7 +4,7 @@ import * as path from "path";
 import { run } from "./index";
 import { ChatModelFactory, ActionRegistry } from "@babeli/core";
 
-jest.mock("@clack/prompts", () => ({
+vi.mock("@clack/prompts", () => ({
   intro: () => {},
   outro: () => {},
   spinner: () => ({ start: () => {}, stop: () => {} }),

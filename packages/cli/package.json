@@ -31,10 +31,7 @@
     "format:check": "prettier --check .",
     "format:fix": "prettier --write .",
     "lint:check": "eslint src",
-    "lint:fix": "eslint src --fix",
-    "prepublish": "bun run build",
-    "publish": "bun publish --access public --production",
-    "update": "bun update"
+    "lint:fix": "eslint src --fix"
   },
   "peerDependencies": {
     "typescript": "^6.0.3"

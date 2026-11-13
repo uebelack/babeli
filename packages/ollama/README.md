@@ -5,7 +5,7 @@
 ## Installation
 
 ```bash
-bun add @babeli/core @babeli/ollama
+pnpm add @babeli/core @babeli/ollama
 ```
 
 ## Usage
@@ -13,10 +13,10 @@ bun add @babeli/core @babeli/ollama
 Make sure Ollama is running locally, then:
 
 ```bash
-bunx babeli update -f translations.json -p ollama
+pnpm exec babeli update -f translations.json -p ollama
 
 # Use a specific model
-bunx babeli update -f translations.json -p ollama -m llama3:8b
+pnpm exec babeli update -f translations.json -p ollama -m llama3:8b
 ```
 
 Programmatic registration:

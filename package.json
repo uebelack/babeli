@@ -1,21 +1,21 @@
 {
     "name": "babeli",
     "version": "0.0.3",
-    "workspaces": ["packages/*"],
     "scripts": {
-        "build": "bun --filter \"*\" build",
-        "format:check": "bun --filter \"*\" format:check",
-        "format:fix": "bun --filter \"*\" format:fix",
-        "integration": "bun --filter ./packages/example integration",
+        "build": "pnpm -r build",
+        "format:check": "pnpm -r format:check",
+        "format:fix": "pnpm -r format:fix",
+        "integration": "pnpm --filter @babeli/example integration",
         "lint:check": "eslint \"packages/*/src/**/*.ts\"",
         "lint:fix": "eslint \"packages/*/src/**/*.ts\" --fix",
-        "publish": "bun --filter \"*\" publish",
-        "update": "bun --filter \"*\" update"
+        "test": "bun test"
     },
     "devDependencies": {
         "@eslint/js": "^10.0.1",
         "eslint": "^10.4.0",
         "typescript": "^6.0.3",
         "typescript-eslint": "^8.60.0"
-    }
+    },
+    "private": true,
+    "packageManager": "pnpm@12.18.0"
 }

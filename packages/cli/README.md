@@ -13,7 +13,7 @@ AI-powered translation management CLI. Validate, sort, and automatically generat
 ## Installation
 
 ```bash
-bun add @babeli/cli @babeli/anthropic
+pnpm add @babeli/cli @babeli/anthropic
 ```
 
 You need at least one model provider for auto-translation:
@@ -25,16 +25,16 @@ You need at least one model provider for auto-translation:
 
 ```bash
 # Validate a multi-language file
-bunx babeli validate -f translations.json
+pnpm exec babeli validate -f translations.json
 
 # Validate single-language files
-bunx babeli validate -f en:locales/en.json de:locales/de.json
+pnpm exec babeli validate -f en:locales/en.json de:locales/de.json
 
 # Update (sort + generate missing translations)
-bunx babeli update -f translations.json -p anthropic -k sk-ant-...
+pnpm exec babeli update -f translations.json -p anthropic -k sk-ant-...
 
 # Update using Ollama (local)
-bunx babeli update -f translations.json -p ollama -m qwen3:8b
+pnpm exec babeli update -f translations.json -p ollama -m qwen3:8b
 ```
 
 ## CLI Options
@@ -91,8 +91,8 @@ export default [
 Then run:
 
 ```bash
-bunx babeli validate
-bunx babeli update
+pnpm exec babeli validate
+pnpm exec babeli update
 ```
 
 CLI arguments override config file values.

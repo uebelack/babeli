@@ -13,15 +13,15 @@ AI-powered translation management. Validate, sort, and automatically generate mi
 ## Quick Start
 
 ```bash
-bun add @babeli/cli @babeli/anthropic
+pnpm add @babeli/cli @babeli/anthropic
 ```
 
 ```bash
 # Validate translation files
-bunx babeli validate -f en:locales/en.json de:locales/de.json
+pnpm exec babeli validate -f en:locales/en.json de:locales/de.json
 
 # Auto-translate missing keys
-bunx babeli update -f en:locales/en.json de:locales/de.json -p anthropic -k sk-ant-...
+pnpm exec babeli update -f en:locales/en.json de:locales/de.json -p anthropic -k sk-ant-...
 ```
 
 Or use a config file (`babeli.config.mjs`):
@@ -38,8 +38,8 @@ export default {
 ```
 
 ```bash
-bunx babeli validate
-bunx babeli update
+pnpm exec babeli validate
+pnpm exec babeli update
 ```
 
 ## Packages
@@ -62,10 +62,10 @@ See the [`@babeli/core` README](./packages/core) for programmatic usage and exte
 ## Development
 
 ```bash
-bun install
-bun run test
-bun run lint:check
-bun run format:check
+pnpm install
+pnpm run test
+pnpm run lint:check
+pnpm run format:check
 ```
 
 ## License

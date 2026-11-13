@@ -16,7 +16,6 @@
     "yaml": "^2.9.0"
   },
   "devDependencies": {
-    "@babeli/anthropic": "workspace:*",
     "@types/bun": "latest",
     "@types/jest": "^30.0.0",
     "@types/node": "^25.9.1",
@@ -27,10 +26,7 @@
     "format:check": "prettier --check .",
     "format:fix": "prettier --write .",
     "lint:check": "eslint src",
-    "lint:fix": "eslint src --fix",
-    "prepublish": "bun run build",
-    "publish": "bun publish --access public --production",
-    "update": "bun update"
+    "lint:fix": "eslint src --fix"
   },
   "peerDependencies": {
     "typescript": "^6.0.3"

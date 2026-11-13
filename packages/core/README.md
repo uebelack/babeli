@@ -11,7 +11,7 @@ For CLI usage and configuration, see the [`@babeli/cli` README](../cli).
 ## Installation
 
 ```bash
-bun add @babeli/core
+pnpm add @babeli/core
 ```
 
 ## Programmatic Usage

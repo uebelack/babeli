@@ -16,13 +16,13 @@ Example project for testing babeli with all supported file formats.
 
 ```bash
 # Validate all translation files
-bun run babeli:validate
+pnpm run babeli:validate
 
 # Update (sort + auto-translate missing keys)
-bun run babeli:update
+pnpm run babeli:update
 
 # Full integration test (validate, update, validate)
-bun run integration
+pnpm run integration
 ```
 
 ## License

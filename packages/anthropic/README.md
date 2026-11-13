@@ -5,7 +5,7 @@ Anthropic Claude model provider for [babeli](../../README.md).
 ## Installation
 
 ```bash
-bun add @babeli/core @babeli/anthropic
+pnpm add @babeli/core @babeli/anthropic
 ```
 
 ## Usage
@@ -13,14 +13,14 @@ bun add @babeli/core @babeli/anthropic
 With the CLI (auto-loaded):
 
 ```bash
-bunx babeli update -f translations.json -p anthropic -k sk-ant-...
+pnpm exec babeli update -f translations.json -p anthropic -k sk-ant-...
 ```
 
 Or via environment variable:
 
 ```bash
 export ANTHROPIC_API_KEY=sk-ant-...
-bunx babeli update -f translations.json -p anthropic
+pnpm exec babeli update -f translations.json -p anthropic
 ```
 
 Programmatic registration:

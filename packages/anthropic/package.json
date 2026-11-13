@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@langchain/anthropic": "^0.3.34",
-    "@langchain/core": "^1.1.48"
+    "@langchain/core": "^1.4.0"
   },
   "devDependencies": {
     "@babeli/core": "workspace:*"

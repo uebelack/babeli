@@ -11,9 +11,7 @@ describe("StringsFileWriter", () => {
   let config: Configuration;
 
   beforeEach(() => {
-    tmpDir = fs.mkdtempSync(
-      path.join(os.tmpdir(), "babeli-strings-writer-test-"),
-    );
+    tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "babeli-strings-writer-test-"));
     config = { charset: "utf-8" };
   });
 
@@ -37,9 +35,7 @@ describe("StringsFileWriter", () => {
       writer.writeSingleLanguageFile(file);
 
       const content = fs.readFileSync(filePath, "utf-8");
-      expect(content).toBe(
-        '"greeting" = "Hello";\n\n"farewell" = "Goodbye";\n',
-      );
+      expect(content).toBe('"greeting" = "Hello";\n\n"farewell" = "Goodbye";\n');
     });
 
     it("should escape quotes in keys and values", () => {
@@ -47,9 +43,7 @@ describe("StringsFileWriter", () => {
       const file: SingleLanguageTranslationFile = {
         language: "en",
         file: filePath,
-        translations: [
-          { language: "en", key: "msg", value: 'He said "hello"' },
-        ],
+        translations: [{ language: "en", key: "msg", value: 'He said "hello"' }],
       };
 
       const writer = new StringsFileWriter(config);
@@ -81,12 +75,7 @@ describe("StringsFileWriter", () => {
     });
 
     it("should create parent directories including .lproj", () => {
-      const filePath = path.join(
-        tmpDir,
-        "Resources",
-        "en.lproj",
-        "Localizable.strings",
-      );
+      const filePath = path.join(tmpDir, "Resources", "en.lproj", "Localizable.strings");
       const file: SingleLanguageTranslationFile = {
         language: "en",
         file: filePath,
@@ -122,9 +111,7 @@ describe("StringsFileWriter", () => {
       };
 
       const writer = new StringsFileWriter(config);
-      expect(() => writer.writeSingleLanguageFile(file)).toThrow(
-        FileWriterError,
-      );
+      expect(() => writer.writeSingleLanguageFile(file)).toThrow(FileWriterError);
     });
   });
 

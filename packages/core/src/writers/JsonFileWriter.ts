@@ -7,9 +7,7 @@ import type { SingleLanguageTranslationFile } from "../model/SingleLanguageTrans
 import { Translations } from "../model/Translations";
 import { FileWriterError } from "../errors/FileWriterError";
 
-function unflattenObject(
-  flat: Record<string, unknown>,
-): Record<string, unknown> {
+function unflattenObject(flat: Record<string, unknown>): Record<string, unknown> {
   const result: Record<string, unknown> = {};
   for (const [key, value] of Object.entries(flat)) {
     const parts = key.split(".");
@@ -68,22 +66,14 @@ export class JsonFileWriter implements FileWriter {
         }
         const obj = unflattenObject(flat);
         const json = JSON.stringify(obj, null, 2);
-        fs.writeFileSync(
-          file.file,
-          json,
-          this.configuration.charset ?? "utf-8",
-        );
+        fs.writeFileSync(file.file, json, this.configuration.charset ?? "utf-8");
       } else {
         const obj: Record<string, Record<string, string>> = {};
         for (const [key, langMap] of keyLanguageMap) {
           obj[key] = Object.fromEntries(langMap);
         }
         const json = JSON.stringify(obj, null, 2);
-        fs.writeFileSync(
-          file.file,
-          json,
-          this.configuration.charset ?? "utf-8",
-        );
+        fs.writeFileSync(file.file, json, this.configuration.charset ?? "utf-8");
       }
     } catch (e) {
       if (e instanceof FileWriterError) throw e;

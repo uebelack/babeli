@@ -9,15 +9,10 @@ import { FileReaderError } from "../errors/FileReaderError";
 type YamlValue = string | { [key: string]: YamlValue };
 
 function isNested(obj: Record<string, unknown>): boolean {
-  return Object.values(obj).some(
-    (v) => typeof v === "object" && v !== null && !Array.isArray(v),
-  );
+  return Object.values(obj).some((v) => typeof v === "object" && v !== null && !Array.isArray(v));
 }
 
-function flattenObject(
-  obj: Record<string, YamlValue>,
-  prefix = "",
-): Map<string, string> {
+function flattenObject(obj: Record<string, YamlValue>, prefix = ""): Map<string, string> {
   const result = new Map<string, string>();
   for (const [key, value] of Object.entries(obj)) {
     const fullKey = prefix ? `${prefix}.${key}` : key;
@@ -39,20 +34,12 @@ export class YamlFileReader implements FileReader {
     this.configuration = configuration;
   }
 
-  readSingleLanguageFile(
-    language: string,
-    filePath: string,
-  ): SingleLanguageTranslationFile {
+  readSingleLanguageFile(language: string, filePath: string): SingleLanguageTranslationFile {
     try {
-      const content = fs.readFileSync(
-        filePath,
-        this.configuration.charset ?? "utf-8",
-      );
+      const content = fs.readFileSync(filePath, this.configuration.charset ?? "utf-8");
       const obj = YAML.parse(content) as Record<string, YamlValue>;
       const nested = isNested(obj);
-      const map = nested
-        ? flattenObject(obj)
-        : new Map(Object.entries(obj) as [string, string][]);
+      const map = nested ? flattenObject(obj) : new Map(Object.entries(obj) as [string, string][]);
 
       const translations = [...map.entries()].map(([key, value]) => ({
         language,
@@ -69,14 +56,10 @@ export class YamlFileReader implements FileReader {
 
   readMultiLanguageFile(filePath: string): MultiLanguageTranslationFile {
     try {
-      const content = fs.readFileSync(
-        filePath,
-        this.configuration.charset ?? "utf-8",
-      );
+      const content = fs.readFileSync(filePath, this.configuration.charset ?? "utf-8");
       const raw = YAML.parse(content) as Record<string, unknown>;
       const languages = Object.keys(raw);
-      const translations: { language: string; key: string; value: string }[] =
-        [];
+      const translations: { language: string; key: string; value: string }[] = [];
 
       let nested = false;
       for (const lang of languages) {

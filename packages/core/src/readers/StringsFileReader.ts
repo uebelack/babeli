@@ -24,15 +24,9 @@ export class StringsFileReader implements FileReader {
     this.configuration = configuration;
   }
 
-  readSingleLanguageFile(
-    language: string,
-    filePath: string,
-  ): SingleLanguageTranslationFile {
+  readSingleLanguageFile(language: string, filePath: string): SingleLanguageTranslationFile {
     try {
-      const content = fs.readFileSync(
-        filePath,
-        this.configuration.charset ?? "utf-8",
-      );
+      const content = fs.readFileSync(filePath, this.configuration.charset ?? "utf-8");
       const map = parseStringsFile(content);
 
       const translations = [...map.entries()].map(([key, value]) => ({

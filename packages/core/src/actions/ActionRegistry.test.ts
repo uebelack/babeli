@@ -29,9 +29,7 @@ describe("ActionRegistry", () => {
 
   it("should throw ActionNotFoundError for unknown action", () => {
     const config: Configuration = {};
-    expect(() => ActionRegistry.createAction("unknown", config)).toThrow(
-      ActionNotFoundError,
-    );
+    expect(() => ActionRegistry.createAction("unknown", config)).toThrow(ActionNotFoundError);
     expect(() => ActionRegistry.createAction("unknown", config)).toThrow(
       "Action unknown not found",
     );
@@ -65,11 +63,7 @@ describe("ActionRegistry", () => {
     expect(ActionRegistry.getActionNames().has("sort")).toBe(true);
 
     const config: Configuration = {};
-    expect(ActionRegistry.createAction("missing", config)).toBeInstanceOf(
-      MissingAction,
-    );
-    expect(ActionRegistry.createAction("sort", config)).toBeInstanceOf(
-      SortAction,
-    );
+    expect(ActionRegistry.createAction("missing", config)).toBeInstanceOf(MissingAction);
+    expect(ActionRegistry.createAction("sort", config)).toBeInstanceOf(SortAction);
   });
 });

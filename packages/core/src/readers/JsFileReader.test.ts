@@ -18,10 +18,7 @@ describe("JsFileReader", () => {
   describe("readSingleLanguageFile", () => {
     it("should read a flat single language JS file", async () => {
       const filePath = path.join(tmpDir, "en.mjs");
-      fs.writeFileSync(
-        filePath,
-        'export default { greeting: "Hello", farewell: "Goodbye" };\n',
-      );
+      fs.writeFileSync(filePath, 'export default { greeting: "Hello", farewell: "Goodbye" };\n');
 
       const reader = new JsFileReader();
       const result = await reader.readSingleLanguageFile("en", filePath);
@@ -29,12 +26,8 @@ describe("JsFileReader", () => {
       expect(result.language).toBe("en");
       expect(result.file).toBe(filePath);
       expect(result.translations).toHaveLength(2);
-      expect(result.translations.find((t) => t.key === "greeting")?.value).toBe(
-        "Hello",
-      );
-      expect(result.translations.find((t) => t.key === "farewell")?.value).toBe(
-        "Goodbye",
-      );
+      expect(result.translations.find((t) => t.key === "greeting")?.value).toBe("Hello");
+      expect(result.translations.find((t) => t.key === "farewell")?.value).toBe("Goodbye");
     });
 
     it("should read a nested single language JS file", async () => {
@@ -60,34 +53,24 @@ describe("JsFileReader", () => {
 
       expect(result.nested).toBe(true);
       expect(result.translations).toHaveLength(4);
-      expect(
-        result.translations.find((t) => t.key === "button.yes")?.value,
-      ).toBe("Yes");
-      expect(
-        result.translations.find((t) => t.key === "button.no")?.value,
-      ).toBe("No");
-      expect(
-        result.translations.find((t) => t.key === "button.perhaps")?.value,
-      ).toBe("Perhaps");
-      expect(
-        result.translations.find((t) => t.key === "error.message.notfound")
-          ?.value,
-      ).toBe("The requested resource was not found.");
+      expect(result.translations.find((t) => t.key === "button.yes")?.value).toBe("Yes");
+      expect(result.translations.find((t) => t.key === "button.no")?.value).toBe("No");
+      expect(result.translations.find((t) => t.key === "button.perhaps")?.value).toBe("Perhaps");
+      expect(result.translations.find((t) => t.key === "error.message.notfound")?.value).toBe(
+        "The requested resource was not found.",
+      );
     });
 
     it("should throw FileReaderError for non-existent file", async () => {
       const reader = new JsFileReader();
-      await expect(
-        reader.readSingleLanguageFile("en", "/nonexistent/file.mjs"),
-      ).rejects.toThrow(FileReaderError);
+      await expect(reader.readSingleLanguageFile("en", "/nonexistent/file.mjs")).rejects.toThrow(
+        FileReaderError,
+      );
     });
 
     it("should set nested to false for flat file", async () => {
       const filePath = path.join(tmpDir, "en.mjs");
-      fs.writeFileSync(
-        filePath,
-        'export default { hello: "Hello", bye: "Bye" };\n',
-      );
+      fs.writeFileSync(filePath, 'export default { hello: "Hello", bye: "Bye" };\n');
 
       const reader = new JsFileReader();
       const result = await reader.readSingleLanguageFile("en", filePath);
@@ -124,14 +107,10 @@ describe("JsFileReader", () => {
       expect(result.nested).toBe(true);
       expect(result.translations).toHaveLength(4);
 
-      const enYes = result.translations.find(
-        (t) => t.key === "button.yes" && t.language === "en",
-      );
+      const enYes = result.translations.find((t) => t.key === "button.yes" && t.language === "en");
       expect(enYes?.value).toBe("Yes");
 
-      const deNo = result.translations.find(
-        (t) => t.key === "button.no" && t.language === "de",
-      );
+      const deNo = result.translations.find((t) => t.key === "button.no" && t.language === "de");
       expect(deNo?.value).toBe("Nein");
     });
 
@@ -159,9 +138,9 @@ describe("JsFileReader", () => {
 
     it("should throw FileReaderError for non-existent file", async () => {
       const reader = new JsFileReader();
-      await expect(
-        reader.readMultiLanguageFile("/nonexistent/file.mjs"),
-      ).rejects.toThrow(FileReaderError);
+      await expect(reader.readMultiLanguageFile("/nonexistent/file.mjs")).rejects.toThrow(
+        FileReaderError,
+      );
     });
   });
 });

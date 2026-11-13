@@ -102,9 +102,7 @@ describe("TsFileWriter", () => {
       };
 
       const writer = new TsFileWriter(config);
-      expect(() => writer.writeSingleLanguageFile(file)).toThrow(
-        FileWriterError,
-      );
+      expect(() => writer.writeSingleLanguageFile(file)).toThrow(FileWriterError);
     });
 
     it("should use default charset when not configured", () => {
@@ -184,9 +182,7 @@ describe("TsFileWriter", () => {
       };
 
       const writer = new TsFileWriter(config);
-      expect(() => writer.writeMultiLanguageFile(file)).toThrow(
-        FileWriterError,
-      );
+      expect(() => writer.writeMultiLanguageFile(file)).toThrow(FileWriterError);
     });
 
     it("should use default charset when not configured", () => {

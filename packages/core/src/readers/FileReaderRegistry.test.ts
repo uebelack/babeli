@@ -24,19 +24,13 @@ describe("FileReaderRegistry", () => {
 
   it("should throw ConfigurationError when no file is configured", () => {
     const config: Configuration = {};
-    expect(() => FileReaderRegistry.getFileReader(config)).toThrow(
-      ConfigurationError,
-    );
-    expect(() => FileReaderRegistry.getFileReader(config)).toThrow(
-      "No file configured",
-    );
+    expect(() => FileReaderRegistry.getFileReader(config)).toThrow(ConfigurationError);
+    expect(() => FileReaderRegistry.getFileReader(config)).toThrow("No file configured");
   });
 
   it("should throw ConfigurationError for unknown extension", () => {
     const config: Configuration = { file: "/project/data.xml" };
-    expect(() => FileReaderRegistry.getFileReader(config)).toThrow(
-      ConfigurationError,
-    );
+    expect(() => FileReaderRegistry.getFileReader(config)).toThrow(ConfigurationError);
     expect(() => FileReaderRegistry.getFileReader(config)).toThrow(
       "No FileReader registered for file extension: xml",
     );
@@ -71,13 +65,9 @@ describe("FileReaderRegistry", () => {
     FileReaderRegistry.reset();
 
     const jsonConfig: Configuration = { file: "/project/en.json" };
-    expect(FileReaderRegistry.getFileReader(jsonConfig)).toBeInstanceOf(
-      JsonFileReader,
-    );
+    expect(FileReaderRegistry.getFileReader(jsonConfig)).toBeInstanceOf(JsonFileReader);
 
     const xmlConfig: Configuration = { file: "/project/data.xml" };
-    expect(() => FileReaderRegistry.getFileReader(xmlConfig)).toThrow(
-      ConfigurationError,
-    );
+    expect(() => FileReaderRegistry.getFileReader(xmlConfig)).toThrow(ConfigurationError);
   });
 });

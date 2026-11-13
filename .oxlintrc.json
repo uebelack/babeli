@@ -1,0 +1,25 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["typescript", "unicorn", "oxc", "vitest"],
+  "categories": {
+    "correctness": "error"
+  },
+  "rules": {},
+  "env": {
+    "builtin": true,
+    "node": true,
+    "es2024": true
+  },
+  "ignorePatterns": ["packages/example/translations/**"],
+  "globals": {
+    "jest": "readonly",
+    "describe": "readonly",
+    "it": "readonly",
+    "test": "readonly",
+    "expect": "readonly",
+    "beforeAll": "readonly",
+    "afterAll": "readonly",
+    "beforeEach": "readonly",
+    "afterEach": "readonly"
+  }
+}

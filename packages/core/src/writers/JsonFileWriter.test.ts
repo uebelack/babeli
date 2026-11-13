@@ -94,9 +94,7 @@ describe("JsonFileWriter", () => {
       };
 
       const writer = new JsonFileWriter(config);
-      expect(() => writer.writeSingleLanguageFile(file)).toThrow(
-        FileWriterError,
-      );
+      expect(() => writer.writeSingleLanguageFile(file)).toThrow(FileWriterError);
     });
   });
 
@@ -157,9 +155,7 @@ describe("JsonFileWriter", () => {
       };
 
       const writer = new JsonFileWriter(config);
-      expect(() => writer.writeMultiLanguageFile(file)).toThrow(
-        FileWriterError,
-      );
+      expect(() => writer.writeMultiLanguageFile(file)).toThrow(FileWriterError);
     });
   });
 

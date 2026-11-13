@@ -6,9 +6,7 @@ import { FileReaderRegistry } from "./readers/FileReaderRegistry";
 import { FileWriterRegistry } from "./writers/FileWriterRegistry";
 
 function skip(configuration: Configuration): boolean {
-  return (
-    (process.env.BABELI_SKIP ?? String(configuration.skip ?? false)) === "true"
-  );
+  return (process.env.BABELI_SKIP ?? String(configuration.skip ?? false)) === "true";
 }
 
 function getActions(configuration: Configuration): string[] {
@@ -32,9 +30,7 @@ export const Babeli = {
     const actions = getActions(configuration);
 
     if (configuration.file) {
-      const translationFile = await fileReader.readMultiLanguageFile(
-        configuration.file,
-      );
+      const translationFile = await fileReader.readMultiLanguageFile(configuration.file);
       for (const actionName of actions) {
         const action = ActionRegistry.createAction(actionName, configuration);
         errors.push(...action.validateMultiLanguageFile(translationFile));
@@ -43,9 +39,7 @@ export const Babeli = {
 
     if (configuration.files?.length) {
       const translationFiles = await Promise.all(
-        configuration.files.map((f) =>
-          fileReader.readSingleLanguageFile(f.language, f.file),
-        ),
+        configuration.files.map((f) => fileReader.readSingleLanguageFile(f.language, f.file)),
       );
       for (const actionName of actions) {
         const action = ActionRegistry.createAction(actionName, configuration);
@@ -67,8 +61,7 @@ export const Babeli = {
       return;
     }
 
-    const modelProvider =
-      process.env.BABELI_MODEL_PROVIDER ?? configuration.modelProvider;
+    const modelProvider = process.env.BABELI_MODEL_PROVIDER ?? configuration.modelProvider;
 
     if (!modelProvider) {
       log.warn(
@@ -82,9 +75,7 @@ export const Babeli = {
     const actions = getActions(configuration);
 
     if (configuration.file) {
-      let translationFile = await fileReader.readMultiLanguageFile(
-        configuration.file,
-      );
+      let translationFile = await fileReader.readMultiLanguageFile(configuration.file);
       for (const actionName of actions) {
         const action = ActionRegistry.createAction(actionName, configuration);
         translationFile = await action.updateMultiLanguageFile(translationFile);
@@ -94,14 +85,11 @@ export const Babeli = {
 
     if (configuration.files?.length) {
       let translationFiles = await Promise.all(
-        configuration.files.map((f) =>
-          fileReader.readSingleLanguageFile(f.language, f.file),
-        ),
+        configuration.files.map((f) => fileReader.readSingleLanguageFile(f.language, f.file)),
       );
       for (const actionName of actions) {
         const action = ActionRegistry.createAction(actionName, configuration);
-        translationFiles =
-          await action.updateSingleLanguageFiles(translationFiles);
+        translationFiles = await action.updateSingleLanguageFiles(translationFiles);
       }
       for (const tf of translationFiles) {
         fileWriter.writeSingleLanguageFile(tf);

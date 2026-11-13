@@ -9,10 +9,7 @@ type ActionFactory = (configuration: Configuration) => Action;
 const actionFactories = new Map<string, ActionFactory>();
 
 function registerDefaults(): void {
-  actionFactories.set(
-    MissingAction.NAME,
-    (config) => new MissingAction(config),
-  );
+  actionFactories.set(MissingAction.NAME, (config) => new MissingAction(config));
   actionFactories.set(SortAction.NAME, (config) => new SortAction(config));
 }
 

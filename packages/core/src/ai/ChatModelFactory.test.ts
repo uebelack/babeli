@@ -56,9 +56,7 @@ describe("ChatModelFactory", () => {
   it("should throw ConfigurationError when no model provider is configured", async () => {
     const config: Configuration = {};
 
-    await expect(ChatModelFactory.createChatModel(config)).rejects.toThrow(
-      ConfigurationError,
-    );
+    await expect(ChatModelFactory.createChatModel(config)).rejects.toThrow(ConfigurationError);
     await expect(ChatModelFactory.createChatModel(config)).rejects.toThrow(
       "No model provider configured",
     );
@@ -67,24 +65,16 @@ describe("ChatModelFactory", () => {
   it("should throw ConfigurationError when provider is not found and package is not installed", async () => {
     const config: Configuration = { modelProvider: "nonexistent" };
 
-    await expect(ChatModelFactory.createChatModel(config)).rejects.toThrow(
-      ConfigurationError,
-    );
-    await expect(ChatModelFactory.createChatModel(config)).rejects.toThrow(
-      /could not be loaded/,
-    );
+    await expect(ChatModelFactory.createChatModel(config)).rejects.toThrow(ConfigurationError);
+    await expect(ChatModelFactory.createChatModel(config)).rejects.toThrow(/could not be loaded/);
   });
 
   it("should propagate ConfigurationError from extractProvider during dynamic loading", async () => {
     // "core" resolves to @babeli/core which exists but doesn't export CoreChatModelProvider
     const config: Configuration = { modelProvider: "core" };
 
-    await expect(ChatModelFactory.createChatModel(config)).rejects.toThrow(
-      ConfigurationError,
-    );
-    await expect(ChatModelFactory.createChatModel(config)).rejects.toThrow(
-      /does not export/,
-    );
+    await expect(ChatModelFactory.createChatModel(config)).rejects.toThrow(ConfigurationError);
+    await expect(ChatModelFactory.createChatModel(config)).rejects.toThrow(/does not export/);
   });
 
   it("should dynamically load a provider package when not registered", async () => {
@@ -122,9 +112,7 @@ describe("ChatModelFactory", () => {
 
     ChatModelFactory.reset();
 
-    await expect(ChatModelFactory.createChatModel(config)).rejects.toThrow(
-      ConfigurationError,
-    );
+    await expect(ChatModelFactory.createChatModel(config)).rejects.toThrow(ConfigurationError);
   });
 });
 
@@ -137,11 +125,7 @@ describe("extractProvider", () => {
     }
 
     const module = { TestChatModelProvider };
-    const provider = extractProvider(
-      module,
-      "TestChatModelProvider",
-      "@babeli/test",
-    );
+    const provider = extractProvider(module, "TestChatModelProvider", "@babeli/test");
 
     expect(provider).toBeInstanceOf(TestChatModelProvider);
   });
@@ -154,11 +138,7 @@ describe("extractProvider", () => {
     }
 
     const module = { default: DefaultProvider };
-    const provider = extractProvider(
-      module,
-      "NonExistentClassName",
-      "@babeli/test",
-    );
+    const provider = extractProvider(module, "NonExistentClassName", "@babeli/test");
 
     expect(provider).toBeInstanceOf(DefaultProvider);
   });
@@ -166,11 +146,11 @@ describe("extractProvider", () => {
   it("should throw ConfigurationError when no matching export found", () => {
     const module = { something: "else" };
 
-    expect(() =>
-      extractProvider(module, "TestChatModelProvider", "@babeli/test"),
-    ).toThrow(ConfigurationError);
-    expect(() =>
-      extractProvider(module, "TestChatModelProvider", "@babeli/test"),
-    ).toThrow("does not export TestChatModelProvider or a default export");
+    expect(() => extractProvider(module, "TestChatModelProvider", "@babeli/test")).toThrow(
+      ConfigurationError,
+    );
+    expect(() => extractProvider(module, "TestChatModelProvider", "@babeli/test")).toThrow(
+      "does not export TestChatModelProvider or a default export",
+    );
   });
 });

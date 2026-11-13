@@ -61,44 +61,34 @@ export async function run(args: string[]): Promise<number> {
 
   await yargs(args)
     .scriptName("babeli")
-    .command(
-      "validate",
-      "Validates the translation files",
-      sharedOptions,
-      async (argv) => {
-        exitCode = await validate({
-          files: argv.files,
-          charset: argv.charset,
-          directory: argv.directory,
-          baseLanguage: argv.baseLanguage,
-          actions: argv.actions,
-          modelProvider: argv.modelProvider,
-          model: argv.model,
-          apiKey: argv.apiKey,
-          apiUrl: argv.apiUrl,
-          verbose: argv.verbose,
-        });
-      },
-    )
-    .command(
-      "update",
-      "Updates the translation files",
-      sharedOptions,
-      async (argv) => {
-        exitCode = await update({
-          files: argv.files,
-          charset: argv.charset,
-          directory: argv.directory,
-          baseLanguage: argv.baseLanguage,
-          actions: argv.actions,
-          modelProvider: argv.modelProvider,
-          model: argv.model,
-          apiKey: argv.apiKey,
-          apiUrl: argv.apiUrl,
-          verbose: argv.verbose,
-        });
-      },
-    )
+    .command("validate", "Validates the translation files", sharedOptions, async (argv) => {
+      exitCode = await validate({
+        files: argv.files,
+        charset: argv.charset,
+        directory: argv.directory,
+        baseLanguage: argv.baseLanguage,
+        actions: argv.actions,
+        modelProvider: argv.modelProvider,
+        model: argv.model,
+        apiKey: argv.apiKey,
+        apiUrl: argv.apiUrl,
+        verbose: argv.verbose,
+      });
+    })
+    .command("update", "Updates the translation files", sharedOptions, async (argv) => {
+      exitCode = await update({
+        files: argv.files,
+        charset: argv.charset,
+        directory: argv.directory,
+        baseLanguage: argv.baseLanguage,
+        actions: argv.actions,
+        modelProvider: argv.modelProvider,
+        model: argv.model,
+        apiKey: argv.apiKey,
+        apiUrl: argv.apiUrl,
+        verbose: argv.verbose,
+      });
+    })
     .demandCommand(1, "Please specify a command: validate or update")
     .strict()
     .help()

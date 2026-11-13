@@ -34,10 +34,7 @@ export function jaroWinklerSimilarity(s1: string, s2: string): number {
   }
 
   const jaro =
-    (matches / s1.length +
-      matches / s2.length +
-      (matches - transpositions / 2) / matches) /
-    3;
+    (matches / s1.length + matches / s2.length + (matches - transpositions / 2) / matches) / 3;
 
   let prefixLength = 0;
   for (let i = 0; i < Math.min(s1.length, s2.length, 4); i++) {

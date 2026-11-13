@@ -29,9 +29,7 @@ export async function validate(args: CliArgs): Promise<number> {
     const s = p.spinner();
     s.start("Validating translation files...");
 
-    const results = await Promise.all(
-      configurations.map((config) => Babeli.validate(config)),
-    );
+    const results = await Promise.all(configurations.map((config) => Babeli.validate(config)));
     const errors = results.flat();
 
     if (errors.length === 0) {
@@ -43,9 +41,7 @@ export async function validate(args: CliArgs): Promise<number> {
 
     s.stop("Validation complete.");
     for (const error of errors) {
-      p.log.error(
-        `[${error.action}] ${error.language}: ${error.value} - ${error.message}`,
-      );
+      p.log.error(`[${error.action}] ${error.language}: ${error.value} - ${error.message}`);
     }
     p.outro(`Found ${errors.length} error(s).`);
     return 1;

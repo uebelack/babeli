@@ -1,6 +1,11 @@
 {
   "name": "@babeli/cli",
   "version": "0.0.3",
+  "license": "MIT",
+  "bin": {
+    "babeli": "dist/main.js"
+  },
+  "type": "module",
   "module": "src/index.ts",
   "types": "src/index.ts",
   "exports": {
@@ -9,10 +14,8 @@
       "import": "./src/index.ts"
     }
   },
-  "license": "MIT",
-  "type": "module",
-  "bin": {
-    "babeli": "dist/main.js"
+  "scripts": {
+    "build": "bun build src/main.ts --outdir dist --target node"
   },
   "dependencies": {
     "@babeli/core": "workspace:*",
@@ -23,15 +26,7 @@
     "@types/bun": "latest",
     "@types/jest": "^30.0.0",
     "@types/node": "^25.9.1",
-    "@types/yargs": "^17.0.35",
-    "prettier": "^3.8.3"
-  },
-  "scripts": {
-    "build": "bun build src/main.ts --outdir dist --target node",
-    "format:check": "prettier --check .",
-    "format:fix": "prettier --write .",
-    "lint:check": "eslint src",
-    "lint:fix": "eslint src --fix"
+    "@types/yargs": "^17.0.35"
   },
   "peerDependencies": {
     "typescript": "^6.0.3"

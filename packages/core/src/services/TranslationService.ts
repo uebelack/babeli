@@ -21,10 +21,7 @@ export class TranslationService {
     const candidates = this.translations
       .getTranslationsForLanguage(sourceLanguage)
       .map((t) => t.value)
-      .sort(
-        (a, b) =>
-          jaroWinklerSimilarity(text, b) - jaroWinklerSimilarity(text, a),
-      )
+      .sort((a, b) => jaroWinklerSimilarity(text, b) - jaroWinklerSimilarity(text, a))
       .slice(0, 26);
 
     const result = new Map<string, string>();
@@ -42,11 +39,7 @@ export class TranslationService {
     return result;
   }
 
-  async translate(
-    value: string,
-    sourceLanguage: string,
-    targetLanguage: string,
-  ): Promise<string> {
+  async translate(value: string, sourceLanguage: string, targetLanguage: string): Promise<string> {
     const existingTranslation = this.translations.getTranslationForValue(
       value,
       sourceLanguage,
@@ -57,11 +50,7 @@ export class TranslationService {
       return existingTranslation;
     }
 
-    const similarTranslations = this.findSimilarTranslations(
-      value,
-      sourceLanguage,
-      targetLanguage,
-    );
+    const similarTranslations = this.findSimilarTranslations(value, sourceLanguage, targetLanguage);
 
     let similarTranslationsString = "";
     if (similarTranslations.size > 0) {
@@ -91,9 +80,7 @@ Output only the best translation, never multiple alternatives.
 Do not include the original text in the output.
 Output only the translated text, nothing else.`;
 
-    const chatModel = await ChatModelFactory.createChatModel(
-      this.configuration,
-    );
+    const chatModel = await ChatModelFactory.createChatModel(this.configuration);
     const response = await chatModel.invoke([
       new SystemMessage(systemMessageContent),
       new HumanMessage(value),

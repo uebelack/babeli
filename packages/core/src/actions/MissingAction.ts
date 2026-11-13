@@ -20,17 +20,13 @@ export class MissingAction implements Action {
     translationFiles: SingleLanguageTranslationFile[],
   ): TranslationError[] {
     const allKeys = [
-      ...new Set(
-        translationFiles.flatMap((tf) => tf.translations.map((t) => t.key)),
-      ),
+      ...new Set(translationFiles.flatMap((tf) => tf.translations.map((t) => t.key))),
     ];
 
     const errors: TranslationError[] = [];
 
     for (const translationFile of translationFiles) {
-      const existingKeys = new Set(
-        translationFile.translations.map((t) => t.key),
-      );
+      const existingKeys = new Set(translationFile.translations.map((t) => t.key));
       const missingKeys = allKeys.filter((key) => !existingKeys.has(key));
 
       for (const key of missingKeys) {
@@ -46,16 +42,10 @@ export class MissingAction implements Action {
     return errors;
   }
 
-  validateMultiLanguageFile(
-    translationFile: MultiLanguageTranslationFile,
-  ): TranslationError[] {
-    const translations = Translations.fromTranslations(
-      translationFile.translations,
-    );
+  validateMultiLanguageFile(translationFile: MultiLanguageTranslationFile): TranslationError[] {
+    const translations = Translations.fromTranslations(translationFile.translations);
     const keyLanguageMap = translations.getKeyLanguageMap();
-    const languages = [
-      ...new Set(translationFile.translations.map((t) => t.language)),
-    ];
+    const languages = [...new Set(translationFile.translations.map((t) => t.language))];
     const errors: TranslationError[] = [];
 
     for (const key of keyLanguageMap.keys()) {
@@ -77,13 +67,8 @@ export class MissingAction implements Action {
   async updateMultiLanguageFile(
     translationFile: MultiLanguageTranslationFile,
   ): Promise<MultiLanguageTranslationFile> {
-    const translations = Translations.fromTranslations(
-      translationFile.translations,
-    );
-    const translationService = new TranslationService(
-      this.configuration,
-      translations,
-    );
+    const translations = Translations.fromTranslations(translationFile.translations);
+    const translationService = new TranslationService(this.configuration, translations);
     const logger = new Logger(this.configuration);
 
     for (const language of translations.getLanguages()) {
@@ -92,12 +77,7 @@ export class MissingAction implements Action {
           logger.info(
             `Missing translation for key '${key}' and language '${language}' in file '${relativePath(this.configuration.workingDirectory ?? ".", translationFile.file)}'. Generating translation.`,
           );
-          const translation = await this.translate(
-            translationService,
-            key,
-            language,
-            translations,
-          );
+          const translation = await this.translate(translationService, key, language, translations);
           logger.info(
             `Generated translation for key '${key}' and language '${language}' in file '${relativePath(this.configuration.workingDirectory ?? ".", translationFile.file)}': '${translation}'`,
           );
@@ -117,27 +97,18 @@ export class MissingAction implements Action {
     inputTranslationFiles: SingleLanguageTranslationFile[],
   ): Promise<SingleLanguageTranslationFile[]> {
     const allKeys = [
-      ...new Set(
-        inputTranslationFiles.flatMap((tf) =>
-          tf.translations.map((t) => t.key),
-        ),
-      ),
+      ...new Set(inputTranslationFiles.flatMap((tf) => tf.translations.map((t) => t.key))),
     ];
 
     const translations = Translations.fromTranslations(
       inputTranslationFiles.flatMap((tf) => tf.translations),
     );
 
-    const translationService = new TranslationService(
-      this.configuration,
-      translations,
-    );
+    const translationService = new TranslationService(this.configuration, translations);
     const logger = new Logger(this.configuration);
 
     for (const translationFile of inputTranslationFiles) {
-      const existingKeys = new Set(
-        translationFile.translations.map((t) => t.key),
-      );
+      const existingKeys = new Set(translationFile.translations.map((t) => t.key));
       const missingKeys = allKeys.filter((key) => !existingKeys.has(key));
 
       for (const key of missingKeys) {
@@ -176,18 +147,12 @@ export class MissingAction implements Action {
     if (language !== baseLanguage) {
       const translation = translations.getTranslation(key, baseLanguage);
       if (translation !== undefined) {
-        return translationService.translate(
-          translation,
-          baseLanguage,
-          language,
-        );
+        return translationService.translate(translation, baseLanguage, language);
       }
     }
 
     const translationsMap = translations.getTranslationsMapForKey(key);
-    const referenceLanguage = [...translationsMap!.keys()].find(
-      (l) => l !== language,
-    );
+    const referenceLanguage = [...translationsMap!.keys()].find((l) => l !== language);
 
     if (!referenceLanguage) {
       throw new Error("No other translation found for key " + key);
@@ -196,18 +161,9 @@ export class MissingAction implements Action {
     const referenceValue = translations.getTranslation(key, referenceLanguage);
 
     if (referenceValue === undefined) {
-      throw new Error(
-        "No translation found for key " +
-          key +
-          " and language " +
-          referenceLanguage,
-      );
+      throw new Error("No translation found for key " + key + " and language " + referenceLanguage);
     }
 
-    return translationService.translate(
-      referenceValue,
-      referenceLanguage,
-      language,
-    );
+    return translationService.translate(referenceValue, referenceLanguage, language);
   }
 }

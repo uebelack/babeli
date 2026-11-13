@@ -19,12 +19,8 @@ export class SortAction implements Action {
     const errors: TranslationError[] = [];
 
     for (const translationFile of translationFiles) {
-      const sorted = [...translationFile.translations].sort((a, b) =>
-        a.key.localeCompare(b.key),
-      );
-      const isSorted = translationFile.translations.every(
-        (t, i) => t.key === sorted[i]!.key,
-      );
+      const sorted = [...translationFile.translations].sort((a, b) => a.key.localeCompare(b.key));
+      const isSorted = translationFile.translations.every((t, i) => t.key === sorted[i]!.key);
 
       if (!isSorted) {
         errors.push({
@@ -33,10 +29,7 @@ export class SortAction implements Action {
           value: translationFile.file,
           message:
             "Translations in file " +
-            relativePath(
-              this.configuration.workingDirectory ?? ".",
-              translationFile.file,
-            ) +
+            relativePath(this.configuration.workingDirectory ?? ".", translationFile.file) +
             " are not sorted.",
         });
       }
@@ -51,19 +44,13 @@ export class SortAction implements Action {
     return translationFiles.map((tf) => ({
       language: tf.language,
       file: tf.file,
-      translations: [...tf.translations].sort((a, b) =>
-        a.key.localeCompare(b.key),
-      ),
+      translations: [...tf.translations].sort((a, b) => a.key.localeCompare(b.key)),
       nested: tf.nested,
     }));
   }
 
-  validateMultiLanguageFile(
-    translationFile: MultiLanguageTranslationFile,
-  ): TranslationError[] {
-    const uniqueKeys = [
-      ...new Set(translationFile.translations.map((t) => t.key)),
-    ];
+  validateMultiLanguageFile(translationFile: MultiLanguageTranslationFile): TranslationError[] {
+    const uniqueKeys = [...new Set(translationFile.translations.map((t) => t.key))];
     const sortedKeys = [...uniqueKeys].sort((a, b) => a.localeCompare(b));
     const isSorted = uniqueKeys.every((key, i) => key === sortedKeys[i]);
 
@@ -75,10 +62,7 @@ export class SortAction implements Action {
           value: translationFile.file,
           message:
             "Translations in file " +
-            relativePath(
-              this.configuration.workingDirectory ?? ".",
-              translationFile.file,
-            ) +
+            relativePath(this.configuration.workingDirectory ?? ".", translationFile.file) +
             " are not sorted.",
         },
       ];
@@ -93,8 +77,7 @@ export class SortAction implements Action {
     return {
       file: translationFile.file,
       translations: [...translationFile.translations].sort(
-        (a, b) =>
-          a.key.localeCompare(b.key) || a.language.localeCompare(b.language),
+        (a, b) => a.key.localeCompare(b.key) || a.language.localeCompare(b.language),
       ),
       nested: translationFile.nested,
     };

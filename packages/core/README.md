@@ -53,14 +53,8 @@ ActionRegistry.registerAction("my-action", (config) => new MyAction(config));
 ```typescript
 import { FileReaderRegistry, FileWriterRegistry } from "@babeli/core";
 
-FileReaderRegistry.registerFileReader(
-  ".custom",
-  (config) => new MyReader(config),
-);
-FileWriterRegistry.registerFileWriter(
-  ".custom",
-  (config) => new MyWriter(config),
-);
+FileReaderRegistry.registerFileReader(".custom", (config) => new MyReader(config));
+FileWriterRegistry.registerFileWriter(".custom", (config) => new MyWriter(config));
 ```
 
 ### Custom Model Providers
@@ -71,10 +65,7 @@ Model providers are auto-loaded from `@babeli/<name>` packages. You can also reg
 import { ChatModelFactory } from "@babeli/core";
 import { AnthropicChatModelProvider } from "@babeli/anthropic";
 
-ChatModelFactory.registerProvider(
-  "anthropic",
-  new AnthropicChatModelProvider(),
-);
+ChatModelFactory.registerProvider("anthropic", new AnthropicChatModelProvider());
 ```
 
 ## Built-in Actions

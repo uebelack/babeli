@@ -30,12 +30,8 @@ describe("YamlFileReader", () => {
       expect(result.file).toBe(filePath);
       expect(result.nested).toBe(false);
       expect(result.translations).toHaveLength(2);
-      expect(result.translations.find((t) => t.key === "greeting")?.value).toBe(
-        "Hello",
-      );
-      expect(result.translations.find((t) => t.key === "farewell")?.value).toBe(
-        "Goodbye",
-      );
+      expect(result.translations.find((t) => t.key === "greeting")?.value).toBe("Hello");
+      expect(result.translations.find((t) => t.key === "farewell")?.value).toBe("Goodbye");
     });
 
     it("should read a nested single language YAML file", () => {
@@ -59,26 +55,19 @@ describe("YamlFileReader", () => {
 
       expect(result.nested).toBe(true);
       expect(result.translations).toHaveLength(4);
-      expect(
-        result.translations.find((t) => t.key === "button.yes")?.value,
-      ).toBe("Yes");
-      expect(
-        result.translations.find((t) => t.key === "button.no")?.value,
-      ).toBe("No");
-      expect(
-        result.translations.find((t) => t.key === "button.perhaps")?.value,
-      ).toBe("Perhaps");
-      expect(
-        result.translations.find((t) => t.key === "error.message.notfound")
-          ?.value,
-      ).toBe("The requested resource was not found.");
+      expect(result.translations.find((t) => t.key === "button.yes")?.value).toBe("Yes");
+      expect(result.translations.find((t) => t.key === "button.no")?.value).toBe("No");
+      expect(result.translations.find((t) => t.key === "button.perhaps")?.value).toBe("Perhaps");
+      expect(result.translations.find((t) => t.key === "error.message.notfound")?.value).toBe(
+        "The requested resource was not found.",
+      );
     });
 
     it("should throw FileReaderError for non-existent file", () => {
       const reader = new YamlFileReader(config);
-      expect(() =>
-        reader.readSingleLanguageFile("en", "/nonexistent/file.yaml"),
-      ).toThrow(FileReaderError);
+      expect(() => reader.readSingleLanguageFile("en", "/nonexistent/file.yaml")).toThrow(
+        FileReaderError,
+      );
     });
 
     it("should use default charset when not configured", () => {
@@ -98,9 +87,7 @@ describe("YamlFileReader", () => {
       const result = reader.readSingleLanguageFile("en", filePath);
 
       expect(result.nested).toBe(true);
-      expect(result.translations.find((t) => t.key === "a.b.c")?.value).toBe(
-        "deep",
-      );
+      expect(result.translations.find((t) => t.key === "a.b.c")?.value).toBe("deep");
     });
   });
 
@@ -129,14 +116,10 @@ describe("YamlFileReader", () => {
       expect(result.nested).toBe(true);
       expect(result.translations).toHaveLength(4);
 
-      const enYes = result.translations.find(
-        (t) => t.key === "button.yes" && t.language === "en",
-      );
+      const enYes = result.translations.find((t) => t.key === "button.yes" && t.language === "en");
       expect(enYes?.value).toBe("Yes");
 
-      const deNo = result.translations.find(
-        (t) => t.key === "button.no" && t.language === "de",
-      );
+      const deNo = result.translations.find((t) => t.key === "button.no" && t.language === "de");
       expect(deNo?.value).toBe("Nein");
     });
 
@@ -169,9 +152,7 @@ describe("YamlFileReader", () => {
 
     it("should throw FileReaderError for non-existent file", () => {
       const reader = new YamlFileReader(config);
-      expect(() =>
-        reader.readMultiLanguageFile("/nonexistent/file.yaml"),
-      ).toThrow(FileReaderError);
+      expect(() => reader.readMultiLanguageFile("/nonexistent/file.yaml")).toThrow(FileReaderError);
     });
 
     it("should use default charset when not configured", () => {

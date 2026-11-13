@@ -110,9 +110,7 @@ describe("JsFileWriter", () => {
       };
 
       const writer = new JsFileWriter(config);
-      expect(() => writer.writeSingleLanguageFile(file)).toThrow(
-        FileWriterError,
-      );
+      expect(() => writer.writeSingleLanguageFile(file)).toThrow(FileWriterError);
     });
 
     it("should escape special characters in values", async () => {
@@ -211,9 +209,7 @@ describe("JsFileWriter", () => {
       };
 
       const writer = new JsFileWriter(config);
-      expect(() => writer.writeMultiLanguageFile(file)).toThrow(
-        FileWriterError,
-      );
+      expect(() => writer.writeMultiLanguageFile(file)).toThrow(FileWriterError);
     });
   });
 });

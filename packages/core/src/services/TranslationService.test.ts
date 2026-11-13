@@ -9,8 +9,7 @@ import { AIMessage } from "@langchain/core/messages";
 
 function createMockChatModel(response: string | (() => string)): BaseChatModel {
   return {
-    invoke: async () =>
-      new AIMessage(typeof response === "function" ? response() : response),
+    invoke: async () => new AIMessage(typeof response === "function" ? response() : response),
   } as unknown as BaseChatModel;
 }
 
@@ -87,10 +86,7 @@ describe("TranslationService", () => {
     const provider: ChatModelProvider = { create: () => mockModel };
     ChatModelFactory.registerProvider("test", provider);
 
-    const emptyService = new TranslationService(
-      configuration,
-      Translations.fromTranslations([]),
-    );
+    const emptyService = new TranslationService(configuration, Translations.fromTranslations([]));
 
     await emptyService.translate("Hello", "en", "fr");
 
@@ -110,10 +106,7 @@ describe("TranslationService", () => {
     const provider: ChatModelProvider = { create: () => mockModel };
     ChatModelFactory.registerProvider("test", provider);
 
-    const emptyService = new TranslationService(
-      configuration,
-      Translations.fromTranslations([]),
-    );
+    const emptyService = new TranslationService(configuration, Translations.fromTranslations([]));
 
     await emptyService.translate("Hello", "en", "es");
 
@@ -132,10 +125,7 @@ describe("TranslationService", () => {
     const provider: ChatModelProvider = { create: () => mockModel };
     ChatModelFactory.registerProvider("test", provider);
 
-    const emptyService = new TranslationService(
-      configuration,
-      Translations.fromTranslations([]),
-    );
+    const emptyService = new TranslationService(configuration, Translations.fromTranslations([]));
 
     await emptyService.translate("Hello", "en", "fr");
 
@@ -160,10 +150,7 @@ describe("TranslationService", () => {
       { language: "en", key: "bye", value: "Bye" },
       { language: "fr", key: "hello", value: "Bonjour" },
     ]);
-    const partialService = new TranslationService(
-      configuration,
-      partialTranslations,
-    );
+    const partialService = new TranslationService(configuration, partialTranslations);
 
     await partialService.translate("Thanks", "en", "fr");
 
@@ -184,10 +171,7 @@ describe("TranslationService", () => {
     const provider: ChatModelProvider = { create: () => mockModel };
     ChatModelFactory.registerProvider("test", provider);
 
-    const emptyService = new TranslationService(
-      configuration,
-      Translations.fromTranslations([]),
-    );
+    const emptyService = new TranslationService(configuration, Translations.fromTranslations([]));
 
     const result = await emptyService.translate("Hello World", "en", "de");
     expect(result).toBe("Hallo Welt");

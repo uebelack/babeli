@@ -64,11 +64,7 @@ describe("SortAction", () => {
       ];
 
       const result = await action.updateSingleLanguageFiles(files);
-      expect(result[0]!.translations.map((t) => t.key)).toEqual([
-        "a",
-        "b",
-        "c",
-      ]);
+      expect(result[0]!.translations.map((t) => t.key)).toEqual(["a", "b", "c"]);
     });
   });
 

@@ -220,9 +220,7 @@ describe("MissingAction", () => {
       const provider: ChatModelProvider = { create: () => mockModel };
       ChatModelFactory.registerProvider("test", provider);
 
-      const action = new MissingAction(
-        createSilentConfig({ baseLanguage: "en" }),
-      );
+      const action = new MissingAction(createSilentConfig({ baseLanguage: "en" }));
 
       const file: MultiLanguageTranslationFile = {
         file: "/project/translations.json",
@@ -236,9 +234,7 @@ describe("MissingAction", () => {
       // "orphan" only has "en", but we're trying to translate for "de"
       // Since base language "en" has a translation, it should use that
       const result = await action.updateMultiLanguageFile(file);
-      const deOrphan = result.translations.find(
-        (t) => t.key === "orphan" && t.language === "de",
-      );
+      const deOrphan = result.translations.find((t) => t.key === "orphan" && t.language === "de");
       expect(deOrphan).toBeDefined();
     });
   });

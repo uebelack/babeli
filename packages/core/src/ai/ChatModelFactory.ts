@@ -99,8 +99,7 @@ export const ChatModelFactory = {
 
   async createChatModel(configuration: Configuration): Promise<BaseChatModel> {
     if (!chatModel) {
-      const modelProviderName =
-        process.env.BABELI_MODEL_PROVIDER ?? configuration.modelProvider;
+      const modelProviderName = process.env.BABELI_MODEL_PROVIDER ?? configuration.modelProvider;
 
       if (!modelProviderName) {
         throw new ConfigurationError("No model provider configured");

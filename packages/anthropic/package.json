@@ -1,10 +1,13 @@
 {
   "name": "@babeli/anthropic",
   "version": "0.0.3",
-  "main": "dist/index.js",
-  "module": "src/index.ts",
   "license": "MIT",
   "type": "module",
+  "main": "dist/index.js",
+  "module": "src/index.ts",
+  "scripts": {
+    "build": "bun build src/index.ts --outdir dist --target node"
+  },
   "dependencies": {
     "@langchain/anthropic": "^0.3.34",
     "@langchain/core": "^1.1.48"
@@ -12,15 +15,7 @@
   "devDependencies": {
     "@babeli/core": "workspace:*",
     "@types/bun": "latest",
-    "@types/jest": "^30.0.0",
-    "prettier": "^3.8.3"
-  },
-  "scripts": {
-    "build": "bun build src/index.ts --outdir dist --target node",
-    "format:check": "prettier --check .",
-    "format:fix": "prettier --write .",
-    "lint:check": "eslint src",
-    "lint:fix": "eslint src --fix"
+    "@types/jest": "^30.0.0"
   },
   "peerDependencies": {
     "@babeli/core": "workspace:*",

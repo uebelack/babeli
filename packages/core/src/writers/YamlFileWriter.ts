@@ -8,9 +8,7 @@ import type { SingleLanguageTranslationFile } from "../model/SingleLanguageTrans
 import { Translations } from "../model/Translations";
 import { FileWriterError } from "../errors/FileWriterError";
 
-function unflattenObject(
-  flat: Record<string, unknown>,
-): Record<string, unknown> {
+function unflattenObject(flat: Record<string, unknown>): Record<string, unknown> {
   const result: Record<string, unknown> = {};
   for (const [key, value] of Object.entries(flat)) {
     const parts = key.split(".");

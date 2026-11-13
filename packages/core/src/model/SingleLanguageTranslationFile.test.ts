@@ -7,11 +7,7 @@ describe("singleLanguageTranslationFileFromMap", () => {
       ["farewell", "Goodbye"],
     ]);
 
-    const result = singleLanguageTranslationFileFromMap(
-      "en",
-      "messages.json",
-      map,
-    );
+    const result = singleLanguageTranslationFileFromMap("en", "messages.json", map);
 
     expect(result.language).toBe("en");
     expect(result.file).toBe("messages.json");
@@ -22,11 +18,7 @@ describe("singleLanguageTranslationFileFromMap", () => {
   });
 
   it("should return empty translations for an empty map", () => {
-    const result = singleLanguageTranslationFileFromMap(
-      "de",
-      "empty.json",
-      new Map(),
-    );
+    const result = singleLanguageTranslationFileFromMap("de", "empty.json", new Map());
 
     expect(result.translations).toEqual([]);
   });

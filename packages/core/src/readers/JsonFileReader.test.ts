@@ -21,10 +21,7 @@ describe("JsonFileReader", () => {
   describe("readSingleLanguageFile", () => {
     it("should read a single language JSON file", () => {
       const filePath = path.join(tmpDir, "en.json");
-      fs.writeFileSync(
-        filePath,
-        JSON.stringify({ greeting: "Hello", farewell: "Goodbye" }),
-      );
+      fs.writeFileSync(filePath, JSON.stringify({ greeting: "Hello", farewell: "Goodbye" }));
 
       const reader = new JsonFileReader(config);
       const result = reader.readSingleLanguageFile("en", filePath);
@@ -32,19 +29,15 @@ describe("JsonFileReader", () => {
       expect(result.language).toBe("en");
       expect(result.file).toBe(filePath);
       expect(result.translations).toHaveLength(2);
-      expect(result.translations.find((t) => t.key === "greeting")?.value).toBe(
-        "Hello",
-      );
-      expect(result.translations.find((t) => t.key === "farewell")?.value).toBe(
-        "Goodbye",
-      );
+      expect(result.translations.find((t) => t.key === "greeting")?.value).toBe("Hello");
+      expect(result.translations.find((t) => t.key === "farewell")?.value).toBe("Goodbye");
     });
 
     it("should throw FileReaderError for non-existent file", () => {
       const reader = new JsonFileReader(config);
-      expect(() =>
-        reader.readSingleLanguageFile("en", "/nonexistent/file.json"),
-      ).toThrow(FileReaderError);
+      expect(() => reader.readSingleLanguageFile("en", "/nonexistent/file.json")).toThrow(
+        FileReaderError,
+      );
     });
 
     it("should throw FileReaderError for invalid JSON", () => {
@@ -52,9 +45,7 @@ describe("JsonFileReader", () => {
       fs.writeFileSync(filePath, "not valid json{{{");
 
       const reader = new JsonFileReader(config);
-      expect(() => reader.readSingleLanguageFile("en", filePath)).toThrow(
-        FileReaderError,
-      );
+      expect(() => reader.readSingleLanguageFile("en", filePath)).toThrow(FileReaderError);
     });
 
     it("should use default charset when not configured", () => {
@@ -97,9 +88,7 @@ describe("JsonFileReader", () => {
 
     it("should throw FileReaderError for non-existent file", () => {
       const reader = new JsonFileReader(config);
-      expect(() =>
-        reader.readMultiLanguageFile("/nonexistent/file.json"),
-      ).toThrow(FileReaderError);
+      expect(() => reader.readMultiLanguageFile("/nonexistent/file.json")).toThrow(FileReaderError);
     });
 
     it("should throw FileReaderError for invalid JSON", () => {
@@ -107,9 +96,7 @@ describe("JsonFileReader", () => {
       fs.writeFileSync(filePath, "not valid json");
 
       const reader = new JsonFileReader(config);
-      expect(() => reader.readMultiLanguageFile(filePath)).toThrow(
-        FileReaderError,
-      );
+      expect(() => reader.readMultiLanguageFile(filePath)).toThrow(FileReaderError);
     });
 
     it("should use default charset when not configured", () => {
@@ -143,23 +130,14 @@ describe("JsonFileReader", () => {
 
       expect(result.nested).toBe(true);
       expect(result.translations).toHaveLength(3);
-      expect(
-        result.translations.find((t) => t.key === "common.title")?.value,
-      ).toBe("Hello");
-      expect(
-        result.translations.find((t) => t.key === "common.subtitle")?.value,
-      ).toBe("World");
-      expect(
-        result.translations.find((t) => t.key === "home.teaser")?.value,
-      ).toBe("Welcome");
+      expect(result.translations.find((t) => t.key === "common.title")?.value).toBe("Hello");
+      expect(result.translations.find((t) => t.key === "common.subtitle")?.value).toBe("World");
+      expect(result.translations.find((t) => t.key === "home.teaser")?.value).toBe("Welcome");
     });
 
     it("should set nested to false for flat single language file", () => {
       const filePath = path.join(tmpDir, "en.json");
-      fs.writeFileSync(
-        filePath,
-        JSON.stringify({ hello: "Hello", bye: "Bye" }),
-      );
+      fs.writeFileSync(filePath, JSON.stringify({ hello: "Hello", bye: "Bye" }));
 
       const reader = new JsonFileReader(config);
       const result = reader.readSingleLanguageFile("en", filePath);
@@ -180,9 +158,7 @@ describe("JsonFileReader", () => {
       const result = reader.readSingleLanguageFile("en", filePath);
 
       expect(result.nested).toBe(true);
-      expect(result.translations.find((t) => t.key === "a.b.c")?.value).toBe(
-        "deep",
-      );
+      expect(result.translations.find((t) => t.key === "a.b.c")?.value).toBe("deep");
     });
   });
 

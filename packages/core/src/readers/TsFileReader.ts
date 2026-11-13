@@ -7,15 +7,10 @@ import { FileReaderError } from "../errors/FileReaderError";
 type TsValue = string | { [key: string]: TsValue };
 
 function isNested(obj: Record<string, unknown>): boolean {
-  return Object.values(obj).some(
-    (v) => typeof v === "object" && v !== null && !Array.isArray(v),
-  );
+  return Object.values(obj).some((v) => typeof v === "object" && v !== null && !Array.isArray(v));
 }
 
-function flattenObject(
-  obj: Record<string, TsValue>,
-  prefix = "",
-): Map<string, string> {
+function flattenObject(obj: Record<string, TsValue>, prefix = ""): Map<string, string> {
   const result = new Map<string, string>();
   for (const [key, value] of Object.entries(obj)) {
     const fullKey = prefix ? `${prefix}.${key}` : key;
@@ -30,12 +25,8 @@ function flattenObject(
   return result;
 }
 
-async function loadTsModule(
-  filePath: string,
-): Promise<Record<string, unknown>> {
-  const absolutePath = path.isAbsolute(filePath)
-    ? filePath
-    : path.resolve(process.cwd(), filePath);
+async function loadTsModule(filePath: string): Promise<Record<string, unknown>> {
+  const absolutePath = path.isAbsolute(filePath) ? filePath : path.resolve(process.cwd(), filePath);
   const module = await import(absolutePath);
   return (module.default ?? module) as Record<string, unknown>;
 }
@@ -65,14 +56,11 @@ export class TsFileReader implements FileReader {
     }
   }
 
-  async readMultiLanguageFile(
-    filePath: string,
-  ): Promise<MultiLanguageTranslationFile> {
+  async readMultiLanguageFile(filePath: string): Promise<MultiLanguageTranslationFile> {
     try {
       const raw = await loadTsModule(filePath);
       const languages = Object.keys(raw);
-      const translations: { language: string; key: string; value: string }[] =
-        [];
+      const translations: { language: string; key: string; value: string }[] = [];
 
       let nested = false;
       for (const lang of languages) {

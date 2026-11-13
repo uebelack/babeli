@@ -29,10 +29,7 @@ Programmatic registration:
 import { ChatModelFactory } from "@babeli/core";
 import { AnthropicChatModelProvider } from "@babeli/anthropic";
 
-ChatModelFactory.registerProvider(
-  "anthropic",
-  new AnthropicChatModelProvider(),
-);
+ChatModelFactory.registerProvider("anthropic", new AnthropicChatModelProvider());
 ```
 
 ## Configuration

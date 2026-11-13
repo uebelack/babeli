@@ -29,12 +29,8 @@ describe("TsFileReader", () => {
       expect(result.language).toBe("en");
       expect(result.file).toBe(filePath);
       expect(result.translations).toHaveLength(2);
-      expect(result.translations.find((t) => t.key === "greeting")?.value).toBe(
-        "Hello",
-      );
-      expect(result.translations.find((t) => t.key === "farewell")?.value).toBe(
-        "Goodbye",
-      );
+      expect(result.translations.find((t) => t.key === "greeting")?.value).toBe("Hello");
+      expect(result.translations.find((t) => t.key === "farewell")?.value).toBe("Goodbye");
     });
 
     it("should read a nested single language TS file", async () => {
@@ -59,28 +55,22 @@ describe("TsFileReader", () => {
 
       expect(result.nested).toBe(true);
       expect(result.translations).toHaveLength(3);
-      expect(
-        result.translations.find((t) => t.key === "button.yes")?.value,
-      ).toBe("Yes");
-      expect(
-        result.translations.find((t) => t.key === "error.message.notfound")
-          ?.value,
-      ).toBe("Not found");
+      expect(result.translations.find((t) => t.key === "button.yes")?.value).toBe("Yes");
+      expect(result.translations.find((t) => t.key === "error.message.notfound")?.value).toBe(
+        "Not found",
+      );
     });
 
     it("should throw FileReaderError for non-existent file", async () => {
       const reader = new TsFileReader();
-      await expect(
-        reader.readSingleLanguageFile("en", "/nonexistent/file.ts"),
-      ).rejects.toThrow(FileReaderError);
+      await expect(reader.readSingleLanguageFile("en", "/nonexistent/file.ts")).rejects.toThrow(
+        FileReaderError,
+      );
     });
 
     it("should set nested to false for flat file", async () => {
       const filePath = path.join(tmpDir, "en.ts");
-      fs.writeFileSync(
-        filePath,
-        'export default { hello: "Hello" } as const;\n',
-      );
+      fs.writeFileSync(filePath, 'export default { hello: "Hello" } as const;\n');
 
       const reader = new TsFileReader();
       const result = await reader.readSingleLanguageFile("en", filePath);
@@ -111,9 +101,7 @@ describe("TsFileReader", () => {
       expect(result.nested).toBe(true);
       expect(result.translations).toHaveLength(4);
 
-      const enYes = result.translations.find(
-        (t) => t.key === "button.yes" && t.language === "en",
-      );
+      const enYes = result.translations.find((t) => t.key === "button.yes" && t.language === "en");
       expect(enYes?.value).toBe("Yes");
     });
 
@@ -136,9 +124,9 @@ describe("TsFileReader", () => {
 
     it("should throw FileReaderError for non-existent file", async () => {
       const reader = new TsFileReader();
-      await expect(
-        reader.readMultiLanguageFile("/nonexistent/file.ts"),
-      ).rejects.toThrow(FileReaderError);
+      await expect(reader.readMultiLanguageFile("/nonexistent/file.ts")).rejects.toThrow(
+        FileReaderError,
+      );
     });
   });
 });

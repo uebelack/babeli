@@ -24,9 +24,9 @@ describe("buildConfiguration", () => {
   });
 
   it("should throw for invalid multi-file format", () => {
-    expect(() =>
-      buildConfiguration({ files: ["en:en.json", "invalid_format"] }),
-    ).toThrow("Invalid file format: invalid_format");
+    expect(() => buildConfiguration({ files: ["en:en.json", "invalid_format"] })).toThrow(
+      "Invalid file format: invalid_format",
+    );
   });
 
   it("should set charset", () => {

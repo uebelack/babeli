@@ -31,10 +31,7 @@ describe("run", () => {
 
   it("should run validate command", async () => {
     const filePath = path.join(tmpDir, "translations.json");
-    fs.writeFileSync(
-      filePath,
-      JSON.stringify({ a: { en: "A" }, b: { en: "B" } }),
-    );
+    fs.writeFileSync(filePath, JSON.stringify({ a: { en: "A" }, b: { en: "B" } }));
 
     const code = await run(["validate", "-f", filePath, "-a", "sort"]);
     expect(code).toBe(0);
@@ -42,20 +39,9 @@ describe("run", () => {
 
   it("should run update command", async () => {
     const filePath = path.join(tmpDir, "translations.json");
-    fs.writeFileSync(
-      filePath,
-      JSON.stringify({ z: { en: "Z" }, a: { en: "A" } }),
-    );
+    fs.writeFileSync(filePath, JSON.stringify({ z: { en: "Z" }, a: { en: "A" } }));
 
-    const code = await run([
-      "update",
-      "-f",
-      filePath,
-      "-a",
-      "sort",
-      "-p",
-      "test",
-    ]);
+    const code = await run(["update", "-f", filePath, "-a", "sort", "-p", "test"]);
     expect(code).toBe(0);
   });
 });

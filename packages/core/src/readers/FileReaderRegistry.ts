@@ -45,9 +45,7 @@ export const FileReaderRegistry = {
     const factory = fileReaders.get(extension);
 
     if (!factory) {
-      throw new ConfigurationError(
-        "No FileReader registered for file extension: " + extension,
-      );
+      throw new ConfigurationError("No FileReader registered for file extension: " + extension);
     }
 
     return factory(configuration);

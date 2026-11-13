@@ -9,7 +9,7 @@
     "babeli:update": "babeli update"
   },
   "dependencies": {
-    "@babeli/core": "workspace:*",
-    "@babeli/anthropic": "workspace:*"
+    "@babeli/anthropic": "workspace:*",
+    "@babeli/core": "workspace:*"
   }
 }

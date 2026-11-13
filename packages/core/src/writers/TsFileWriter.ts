@@ -7,9 +7,7 @@ import type { SingleLanguageTranslationFile } from "../model/SingleLanguageTrans
 import { Translations } from "../model/Translations";
 import { FileWriterError } from "../errors/FileWriterError";
 
-function unflattenObject(
-  flat: Record<string, unknown>,
-): Record<string, unknown> {
+function unflattenObject(flat: Record<string, unknown>): Record<string, unknown> {
   const result: Record<string, unknown> = {};
   for (const [key, value] of Object.entries(flat)) {
     const parts = key.split(".");
@@ -30,10 +28,7 @@ function formatValue(value: unknown, indent: number): string {
   const innerPad = "    ".repeat(indent + 1);
 
   if (typeof value === "string") {
-    const escaped = value
-      .replace(/\\/g, "\\\\")
-      .replace(/"/g, '\\"')
-      .replace(/\n/g, "\\n");
+    const escaped = value.replace(/\\/g, "\\\\").replace(/"/g, '\\"').replace(/\n/g, "\\n");
     return `"${escaped}"`;
   }
 
@@ -42,9 +37,7 @@ function formatValue(value: unknown, indent: number): string {
     if (entries.length === 0) return "{}";
 
     const lines = entries.map(([key, val]) => {
-      const formattedKey = /^[a-zA-Z_$][a-zA-Z0-9_$]*$/.test(key)
-        ? key
-        : `"${key}"`;
+      const formattedKey = /^[a-zA-Z_$][a-zA-Z0-9_$]*$/.test(key) ? key : `"${key}"`;
       return `${innerPad}${formattedKey}: ${formatValue(val, indent + 1)}`;
     });
     return `{\n${lines.join(",\n")},\n${pad}}`;
@@ -81,11 +74,7 @@ export class TsFileWriter implements FileWriter {
       }
       const obj = file.nested ? unflattenObject(flat) : flat;
       const source = toTsSource(obj);
-      fs.writeFileSync(
-        file.file,
-        source,
-        this.configuration.charset ?? "utf-8",
-      );
+      fs.writeFileSync(file.file, source, this.configuration.charset ?? "utf-8");
     } catch (e) {
       if (e instanceof FileWriterError) throw e;
       throw new FileWriterError(file.file, e);
@@ -109,11 +98,7 @@ export class TsFileWriter implements FileWriter {
       }
 
       const source = toTsSource(obj);
-      fs.writeFileSync(
-        file.file,
-        source,
-        this.configuration.charset ?? "utf-8",
-      );
+      fs.writeFileSync(file.file, source, this.configuration.charset ?? "utf-8");
     } catch (e) {
       if (e instanceof FileWriterError) throw e;
       throw new FileWriterError(file.file, e);

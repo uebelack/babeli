@@ -121,10 +121,7 @@ describe("commands", () => {
   describe("config file integration", () => {
     it("should use config file when no files provided in validate", async () => {
       const filePath = path.join(tmpDir, "translations.json");
-      fs.writeFileSync(
-        filePath,
-        JSON.stringify({ a: { en: "A" }, b: { en: "B" } }),
-      );
+      fs.writeFileSync(filePath, JSON.stringify({ a: { en: "A" }, b: { en: "B" } }));
       fs.writeFileSync(
         path.join(tmpDir, "babeli.config.mjs"),
         `export default [{ file: ${JSON.stringify(filePath)}, actions: ["sort"] }];`,
@@ -137,10 +134,7 @@ describe("commands", () => {
 
     it("should use config file when no files provided in update", async () => {
       const filePath = path.join(tmpDir, "translations.json");
-      fs.writeFileSync(
-        filePath,
-        JSON.stringify({ z: { en: "Z" }, a: { en: "A" } }),
-      );
+      fs.writeFileSync(filePath, JSON.stringify({ z: { en: "Z" }, a: { en: "A" } }));
       fs.writeFileSync(
         path.join(tmpDir, "babeli.config.mjs"),
         `export default [{ file: ${JSON.stringify(filePath)}, actions: ["sort"], modelProvider: "test" }];`,
@@ -156,10 +150,7 @@ describe("commands", () => {
 
     it("should apply CLI overrides on top of config file", async () => {
       const filePath = path.join(tmpDir, "translations.json");
-      fs.writeFileSync(
-        filePath,
-        JSON.stringify({ z: { en: "Z" }, a: { en: "A" } }),
-      );
+      fs.writeFileSync(filePath, JSON.stringify({ z: { en: "Z" }, a: { en: "A" } }));
       fs.writeFileSync(
         path.join(tmpDir, "babeli.config.mjs"),
         `export default [{ file: ${JSON.stringify(filePath)}, modelProvider: "test" }];`,

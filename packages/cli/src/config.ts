@@ -24,9 +24,7 @@ export function buildConfiguration(args: CliArgs): Configuration {
     configuration.files = args.files.map((f): LanguageFileConfiguration => {
       const parts = f.split(":", 2);
       if (parts.length !== 2) {
-        throw new Error(
-          `Invalid file format: ${f}. Expected format: language:path`,
-        );
+        throw new Error(`Invalid file format: ${f}. Expected format: language:path`);
       }
       return { language: parts[0]!, file: parts[1]! };
     });

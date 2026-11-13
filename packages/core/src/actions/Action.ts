@@ -11,9 +11,7 @@ export interface Action {
     translationFiles: SingleLanguageTranslationFile[],
   ): Promise<SingleLanguageTranslationFile[]>;
 
-  validateMultiLanguageFile(
-    translationFile: MultiLanguageTranslationFile,
-  ): TranslationError[];
+  validateMultiLanguageFile(translationFile: MultiLanguageTranslationFile): TranslationError[];
 
   updateMultiLanguageFile(
     translationFile: MultiLanguageTranslationFile,

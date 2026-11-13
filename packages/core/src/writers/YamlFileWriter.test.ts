@@ -118,9 +118,7 @@ describe("YamlFileWriter", () => {
       };
 
       const writer = new YamlFileWriter(config);
-      expect(() => writer.writeSingleLanguageFile(file)).toThrow(
-        FileWriterError,
-      );
+      expect(() => writer.writeSingleLanguageFile(file)).toThrow(FileWriterError);
     });
   });
 
@@ -202,9 +200,7 @@ describe("YamlFileWriter", () => {
       };
 
       const writer = new YamlFileWriter(config);
-      expect(() => writer.writeMultiLanguageFile(file)).toThrow(
-        FileWriterError,
-      );
+      expect(() => writer.writeMultiLanguageFile(file)).toThrow(FileWriterError);
     });
   });
 });

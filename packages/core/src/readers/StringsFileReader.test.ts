@@ -10,9 +10,7 @@ describe("StringsFileReader", () => {
   let config: Configuration;
 
   beforeEach(() => {
-    tmpDir = fs.mkdtempSync(
-      path.join(os.tmpdir(), "babeli-strings-reader-test-"),
-    );
+    tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "babeli-strings-reader-test-"));
     config = { charset: "utf-8" };
   });
 
@@ -23,10 +21,7 @@ describe("StringsFileReader", () => {
   describe("readSingleLanguageFile", () => {
     it("should read a .strings file", () => {
       const filePath = path.join(tmpDir, "Localizable.strings");
-      fs.writeFileSync(
-        filePath,
-        '"greeting" = "Hello";\n\n"farewell" = "Goodbye";\n',
-      );
+      fs.writeFileSync(filePath, '"greeting" = "Hello";\n\n"farewell" = "Goodbye";\n');
 
       const reader = new StringsFileReader(config);
       const result = reader.readSingleLanguageFile("en", filePath);
@@ -34,12 +29,8 @@ describe("StringsFileReader", () => {
       expect(result.language).toBe("en");
       expect(result.file).toBe(filePath);
       expect(result.translations).toHaveLength(2);
-      expect(result.translations.find((t) => t.key === "greeting")?.value).toBe(
-        "Hello",
-      );
-      expect(result.translations.find((t) => t.key === "farewell")?.value).toBe(
-        "Goodbye",
-      );
+      expect(result.translations.find((t) => t.key === "greeting")?.value).toBe("Hello");
+      expect(result.translations.find((t) => t.key === "farewell")?.value).toBe("Goodbye");
     });
 
     it("should handle escaped quotes in values", () => {
@@ -64,17 +55,12 @@ describe("StringsFileReader", () => {
 
     it("should preserve backslashes in escape sequences", () => {
       const filePath = path.join(tmpDir, "Localizable.strings");
-      fs.writeFileSync(
-        filePath,
-        '"msg" = "privacy policy.\\n\\nDo you agree?";\n',
-      );
+      fs.writeFileSync(filePath, '"msg" = "privacy policy.\\n\\nDo you agree?";\n');
 
       const reader = new StringsFileReader(config);
       const result = reader.readSingleLanguageFile("en", filePath);
 
-      expect(result.translations[0]?.value).toBe(
-        "privacy policy.\\n\\nDo you agree?",
-      );
+      expect(result.translations[0]?.value).toBe("privacy policy.\\n\\nDo you agree?");
     });
 
     it("should handle dotted keys", () => {
@@ -88,9 +74,9 @@ describe("StringsFileReader", () => {
       const result = reader.readSingleLanguageFile("en", filePath);
 
       expect(result.translations).toHaveLength(2);
-      expect(
-        result.translations.find((t) => t.key === "alerts.delete.title")?.value,
-      ).toBe("Delete");
+      expect(result.translations.find((t) => t.key === "alerts.delete.title")?.value).toBe(
+        "Delete",
+      );
     });
 
     it("should handle format specifiers like %@", () => {
@@ -105,10 +91,7 @@ describe("StringsFileReader", () => {
 
     it("should skip comment lines and blank lines", () => {
       const filePath = path.join(tmpDir, "Localizable.strings");
-      fs.writeFileSync(
-        filePath,
-        '/* Comment */\n\n"key" = "value";\n\n// Another comment\n',
-      );
+      fs.writeFileSync(filePath, '/* Comment */\n\n"key" = "value";\n\n// Another comment\n');
 
       const reader = new StringsFileReader(config);
       const result = reader.readSingleLanguageFile("en", filePath);
@@ -119,9 +102,9 @@ describe("StringsFileReader", () => {
 
     it("should throw FileReaderError for non-existent file", () => {
       const reader = new StringsFileReader(config);
-      expect(() =>
-        reader.readSingleLanguageFile("en", "/nonexistent/Localizable.strings"),
-      ).toThrow(FileReaderError);
+      expect(() => reader.readSingleLanguageFile("en", "/nonexistent/Localizable.strings")).toThrow(
+        FileReaderError,
+      );
     });
 
     it("should use default charset when not configured", () => {
@@ -137,9 +120,9 @@ describe("StringsFileReader", () => {
   describe("readMultiLanguageFile", () => {
     it("should throw FileReaderError since .strings does not support multi-language", () => {
       const reader = new StringsFileReader(config);
-      expect(() =>
-        reader.readMultiLanguageFile("/some/Localizable.strings"),
-      ).toThrow(FileReaderError);
+      expect(() => reader.readMultiLanguageFile("/some/Localizable.strings")).toThrow(
+        FileReaderError,
+      );
     });
   });
 });

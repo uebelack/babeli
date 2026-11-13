@@ -9,9 +9,7 @@ import { FileReaderError } from "../errors/FileReaderError";
 type JsonValue = string | { [key: string]: JsonValue };
 
 function isNested(obj: Record<string, unknown>): boolean {
-  return Object.values(obj).some(
-    (v) => typeof v === "object" && v !== null && !Array.isArray(v),
-  );
+  return Object.values(obj).some((v) => typeof v === "object" && v !== null && !Array.isArray(v));
 }
 
 function isNestedMultiLanguage(obj: Record<string, unknown>): boolean {
@@ -26,10 +24,7 @@ function isNestedMultiLanguage(obj: Record<string, unknown>): boolean {
   );
 }
 
-function flattenObject(
-  obj: Record<string, JsonValue>,
-  prefix = "",
-): Map<string, string> {
+function flattenObject(obj: Record<string, JsonValue>, prefix = ""): Map<string, string> {
   const result = new Map<string, string>();
   for (const [key, value] of Object.entries(obj)) {
     const fullKey = prefix ? `${prefix}.${key}` : key;
@@ -54,15 +49,9 @@ function flattenToLanguageMaps(
     if (typeof value === "object" && value !== null && !Array.isArray(value)) {
       const innerValues = Object.values(value as Record<string, unknown>);
       if (innerValues.every((v) => typeof v === "string")) {
-        result.set(
-          fullKey,
-          new Map(Object.entries(value as Record<string, string>)),
-        );
+        result.set(fullKey, new Map(Object.entries(value as Record<string, string>)));
       } else {
-        for (const [k, v] of flattenToLanguageMaps(
-          value as Record<string, unknown>,
-          fullKey,
-        )) {
+        for (const [k, v] of flattenToLanguageMaps(value as Record<string, unknown>, fullKey)) {
           result.set(k, v);
         }
       }
@@ -78,20 +67,12 @@ export class JsonFileReader implements FileReader {
     this.configuration = configuration;
   }
 
-  readSingleLanguageFile(
-    language: string,
-    filePath: string,
-  ): SingleLanguageTranslationFile {
+  readSingleLanguageFile(language: string, filePath: string): SingleLanguageTranslationFile {
     try {
-      const content = fs.readFileSync(
-        filePath,
-        this.configuration.charset ?? "utf-8",
-      );
+      const content = fs.readFileSync(filePath, this.configuration.charset ?? "utf-8");
       const obj = JSON.parse(content) as Record<string, JsonValue>;
       const nested = isNested(obj);
-      const map = nested
-        ? flattenObject(obj)
-        : new Map(Object.entries(obj) as [string, string][]);
+      const map = nested ? flattenObject(obj) : new Map(Object.entries(obj) as [string, string][]);
 
       const translations = [...map.entries()].map(([key, value]) => ({
         language,
@@ -108,10 +89,7 @@ export class JsonFileReader implements FileReader {
 
   readMultiLanguageFile(filePath: string): MultiLanguageTranslationFile {
     try {
-      const content = fs.readFileSync(
-        filePath,
-        this.configuration.charset ?? "utf-8",
-      );
+      const content = fs.readFileSync(filePath, this.configuration.charset ?? "utf-8");
       const raw = JSON.parse(content) as Record<string, unknown>;
       const nested = isNestedMultiLanguage(raw);
 

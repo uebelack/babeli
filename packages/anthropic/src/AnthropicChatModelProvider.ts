@@ -6,9 +6,7 @@ import { ConfigurationError } from "@babeli/core";
 export class AnthropicChatModelProvider implements ChatModelProvider {
   create(configuration: Configuration): BaseChatModel {
     const apiKey =
-      process.env.BABELI_ANTHROPIC_API_KEY ??
-      configuration.apiKey ??
-      process.env.ANTHROPIC_API_KEY;
+      process.env.BABELI_ANTHROPIC_API_KEY ?? configuration.apiKey ?? process.env.ANTHROPIC_API_KEY;
 
     if (!apiKey) {
       throw new ConfigurationError(
@@ -16,10 +14,7 @@ export class AnthropicChatModelProvider implements ChatModelProvider {
       );
     }
 
-    const model =
-      process.env.BABELI_MODEL ??
-      configuration.model ??
-      "claude-sonnet-4-20250514";
+    const model = process.env.BABELI_MODEL ?? configuration.model ?? "claude-sonnet-4-20250514";
 
     return new ChatAnthropic({
       anthropicApiKey: apiKey,

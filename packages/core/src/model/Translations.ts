@@ -36,12 +36,8 @@ export class Translations {
     return translations;
   }
 
-  static fromKeyLanguageMap(
-    keyLanguageMap: Map<string, Map<string, string>>,
-  ): Translations {
-    return new Translations(
-      Translations.keyLanguageMapToTranslations(keyLanguageMap),
-    );
+  static fromKeyLanguageMap(keyLanguageMap: Map<string, Map<string, string>>): Translations {
+    return new Translations(Translations.keyLanguageMapToTranslations(keyLanguageMap));
   }
 
   static fromTranslations(translations: Translation[]): Translations {
@@ -68,9 +64,7 @@ export class Translations {
     return this.keyLanguageMap.get(key);
   }
 
-  getTranslationsMapForLanguage(
-    language: string,
-  ): Map<string, string> | undefined {
+  getTranslationsMapForLanguage(language: string): Map<string, string> | undefined {
     return this.languageKeyMap.get(language);
   }
 

@@ -24,19 +24,13 @@ describe("FileWriterRegistry", () => {
 
   it("should throw ConfigurationError when no file is configured", () => {
     const config: Configuration = {};
-    expect(() => FileWriterRegistry.getFileWriter(config)).toThrow(
-      ConfigurationError,
-    );
-    expect(() => FileWriterRegistry.getFileWriter(config)).toThrow(
-      "No file configured",
-    );
+    expect(() => FileWriterRegistry.getFileWriter(config)).toThrow(ConfigurationError);
+    expect(() => FileWriterRegistry.getFileWriter(config)).toThrow("No file configured");
   });
 
   it("should throw ConfigurationError for unknown extension", () => {
     const config: Configuration = { file: "/project/data.xml" };
-    expect(() => FileWriterRegistry.getFileWriter(config)).toThrow(
-      ConfigurationError,
-    );
+    expect(() => FileWriterRegistry.getFileWriter(config)).toThrow(ConfigurationError);
     expect(() => FileWriterRegistry.getFileWriter(config)).toThrow(
       "No FileWriter registered for file extension: xml",
     );
@@ -63,13 +57,9 @@ describe("FileWriterRegistry", () => {
     FileWriterRegistry.reset();
 
     const jsonConfig: Configuration = { file: "/project/en.json" };
-    expect(FileWriterRegistry.getFileWriter(jsonConfig)).toBeInstanceOf(
-      JsonFileWriter,
-    );
+    expect(FileWriterRegistry.getFileWriter(jsonConfig)).toBeInstanceOf(JsonFileWriter);
 
     const xmlConfig: Configuration = { file: "/project/data.xml" };
-    expect(() => FileWriterRegistry.getFileWriter(xmlConfig)).toThrow(
-      ConfigurationError,
-    );
+    expect(() => FileWriterRegistry.getFileWriter(xmlConfig)).toThrow(ConfigurationError);
   });
 });

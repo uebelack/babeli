@@ -42,9 +42,7 @@ describe("Translations", () => {
 
   it("should return translation map", () => {
     expect(translations.getKeyLanguageMap()).not.toBeNull();
-    expect(
-      translations.getTranslationsMapForKey("common.button.no"),
-    ).toBeDefined();
+    expect(translations.getTranslationsMapForKey("common.button.no")).toBeDefined();
     expect(translations.getTranslationsMapForKey("nothing")).toBeUndefined();
   });
 
@@ -80,15 +78,11 @@ describe("Translations", () => {
   });
 
   it("should return undefined for value with unknown source language", () => {
-    expect(
-      translations.getTranslationForValue("Yes", "xx", "de"),
-    ).toBeUndefined();
+    expect(translations.getTranslationForValue("Yes", "xx", "de")).toBeUndefined();
   });
 
   it("should return undefined for value with unknown target language", () => {
-    expect(
-      translations.getTranslationForValue("Yes", "en", "xx"),
-    ).toBeUndefined();
+    expect(translations.getTranslationForValue("Yes", "en", "xx")).toBeUndefined();
   });
 
   it("should return undefined for value with no matching key in target", () => {
@@ -100,9 +94,7 @@ describe("Translations", () => {
       ),
     ).toBe("The requested resource was not found.");
     // "common.button.perhaps" has no "en" translation, so lookup should return undefined
-    expect(
-      translations.getTranslationForValue("Vielleicht", "de", "en"),
-    ).toBeUndefined();
+    expect(translations.getTranslationForValue("Vielleicht", "de", "en")).toBeUndefined();
   });
 
   it("should create from key-language map", () => {
@@ -145,8 +137,6 @@ describe("Translations", () => {
 
   it("should add translation to existing key with new language", () => {
     translations.add("common.button.perhaps", "en", "Perhaps");
-    expect(translations.getTranslation("common.button.perhaps", "en")).toBe(
-      "Perhaps",
-    );
+    expect(translations.getTranslation("common.button.perhaps", "en")).toBe("Perhaps");
   });
 });

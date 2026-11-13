@@ -28,15 +28,10 @@ export class StringsFileWriter implements FileWriter {
     try {
       this.ensureDirectory(file.file);
       const lines = file.translations.map(
-        (t) =>
-          `"${escapeStringsValue(t.key)}" = "${escapeStringsValue(t.value)}";`,
+        (t) => `"${escapeStringsValue(t.key)}" = "${escapeStringsValue(t.value)}";`,
       );
       const content = lines.join("\n\n") + "\n";
-      fs.writeFileSync(
-        file.file,
-        content,
-        this.configuration.charset ?? "utf-8",
-      );
+      fs.writeFileSync(file.file, content, this.configuration.charset ?? "utf-8");
     } catch (e) {
       if (e instanceof FileWriterError) throw e;
       throw new FileWriterError(file.file, e);

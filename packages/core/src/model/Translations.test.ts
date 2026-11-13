@@ -139,4 +139,14 @@ describe("Translations", () => {
     translations.add("common.button.perhaps", "en", "Perhaps");
     expect(translations.getTranslation("common.button.perhaps", "en")).toBe("Perhaps");
   });
+
+  it("should add translations for a language that has none yet", () => {
+    const translations = Translations.fromTranslations([]);
+
+    translations.add("greeting", "fr", "Bonjour");
+
+    expect(translations.getTranslationsForLanguage("fr")).toEqual([
+      { language: "fr", key: "greeting", value: "Bonjour" },
+    ]);
+  });
 });

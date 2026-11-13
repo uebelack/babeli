@@ -2,6 +2,7 @@
   "name": "babeli",
   "version": "0.0.3",
   "private": true,
+  "type": "module",
   "scripts": {
     "build": "pnpm -r build",
     "format:check": "oxfmt --check .",

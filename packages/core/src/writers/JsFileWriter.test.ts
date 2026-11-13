@@ -212,4 +212,64 @@ describe("JsFileWriter", () => {
       expect(() => writer.writeMultiLanguageFile(file)).toThrow(FileWriterError);
     });
   });
+
+  describe("formatting", () => {
+    it("should default to utf-8 when no charset is configured", () => {
+      const filePath = path.join(tmpDir, "en.mjs");
+      new JsFileWriter({}).writeSingleLanguageFile({
+        language: "en",
+        file: filePath,
+        translations: [{ language: "en", key: "greeting", value: "Grüezi" }],
+      });
+      new JsFileWriter({}).writeMultiLanguageFile({
+        file: path.join(tmpDir, "multi.mjs"),
+        translations: [{ language: "en", key: "greeting", value: "Grüezi" }],
+      });
+
+      expect(fs.readFileSync(filePath, "utf-8")).toContain('greeting: "Grüezi"');
+      expect(fs.readFileSync(path.join(tmpDir, "multi.mjs"), "utf-8")).toContain(
+        'greeting: "Grüezi"',
+      );
+    });
+
+    it("should write an empty object for a file without translations", () => {
+      const filePath = path.join(tmpDir, "en.mjs");
+      new JsFileWriter(config).writeSingleLanguageFile({
+        language: "en",
+        file: filePath,
+        translations: [],
+      });
+
+      expect(fs.readFileSync(filePath, "utf-8")).toContain("export default {}");
+    });
+
+    it("should write non-string values as literals", () => {
+      const filePath = path.join(tmpDir, "en.mjs");
+      new JsFileWriter(config).writeSingleLanguageFile({
+        language: "en",
+        file: filePath,
+        translations: [{ language: "en", key: "count", value: 42 as unknown as string }],
+      });
+
+      expect(fs.readFileSync(filePath, "utf-8")).toContain("count: 42,");
+    });
+
+    it("should group nested keys sharing a prefix", () => {
+      const filePath = path.join(tmpDir, "en.mjs");
+      new JsFileWriter(config).writeSingleLanguageFile({
+        language: "en",
+        file: filePath,
+        nested: true,
+        translations: [
+          { language: "en", key: "button.yes", value: "Yes" },
+          { language: "en", key: "button.no", value: "No" },
+        ],
+      });
+
+      const content = fs.readFileSync(filePath, "utf-8");
+      expect(content.match(/button:/g)).toHaveLength(1);
+      expect(content).toContain('yes: "Yes"');
+      expect(content).toContain('no: "No"');
+    });
+  });
 });

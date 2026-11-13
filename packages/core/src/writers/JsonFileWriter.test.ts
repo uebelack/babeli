@@ -244,4 +244,26 @@ describe("JsonFileWriter", () => {
       });
     });
   });
+
+  it("should default to utf-8 when no charset is configured", () => {
+    const filePath = path.join(tmpDir, "multi.json");
+    new JsonFileWriter({}).writeMultiLanguageFile({
+      file: filePath,
+      translations: [{ language: "en", key: "greeting", value: "Grüezi" }],
+    });
+
+    expect(JSON.parse(fs.readFileSync(filePath, "utf-8"))).toEqual({
+      greeting: { en: "Grüezi" },
+    });
+
+    new JsonFileWriter({}).writeMultiLanguageFile({
+      file: filePath,
+      nested: true,
+      translations: [{ language: "en", key: "button.yes", value: "Grüezi" }],
+    });
+
+    expect(JSON.parse(fs.readFileSync(filePath, "utf-8"))).toEqual({
+      button: { yes: { en: "Grüezi" } },
+    });
+  });
 });

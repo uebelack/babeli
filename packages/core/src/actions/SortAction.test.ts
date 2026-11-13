@@ -114,4 +114,20 @@ describe("SortAction", () => {
       expect(result.translations.map((t) => t.key)).toEqual(["a", "a", "c"]);
     });
   });
+
+  it("should report file paths relative to the current directory by default", () => {
+    const errors = new SortAction({}).validateSingleLanguageFiles([
+      {
+        language: "en",
+        file: "en.json",
+        translations: [
+          { language: "en", key: "b", value: "B" },
+          { language: "en", key: "a", value: "A" },
+        ],
+      },
+    ]);
+
+    expect(errors).toHaveLength(1);
+    expect(errors[0]!.message).toContain("en.json");
+  });
 });

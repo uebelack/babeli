@@ -129,4 +129,27 @@ describe("TsFileReader", () => {
       );
     });
   });
+
+  describe("module resolution", () => {
+    it("should resolve relative paths against the current working directory", async () => {
+      fs.writeFileSync(path.join(tmpDir, "en.ts"), 'export default { greeting: "Hello" };\n');
+      const cwd = vi.spyOn(process, "cwd").mockReturnValue(tmpDir);
+
+      try {
+        const result = await new TsFileReader().readSingleLanguageFile("en", "en.ts");
+        expect(result.translations).toEqual([{ language: "en", key: "greeting", value: "Hello" }]);
+      } finally {
+        cwd.mockRestore();
+      }
+    });
+
+    it("should use named exports when there is no default export", async () => {
+      const filePath = path.join(tmpDir, "named.ts");
+      fs.writeFileSync(filePath, 'export const greeting = "Hello";\n');
+
+      const result = await new TsFileReader().readSingleLanguageFile("en", filePath);
+
+      expect(result.translations).toEqual([{ language: "en", key: "greeting", value: "Hello" }]);
+    });
+  });
 });

@@ -2,6 +2,10 @@ import { FileReaderRegistry } from "./FileReaderRegistry";
 import { JsonFileReader } from "./JsonFileReader";
 import { ConfigurationError } from "../errors/ConfigurationError";
 import type { Configuration } from "../Configuration";
+import { JsFileReader } from "./JsFileReader";
+import { TsFileReader } from "./TsFileReader";
+import { YamlFileReader } from "./YamlFileReader";
+import { StringsFileReader } from "./StringsFileReader";
 
 describe("FileReaderRegistry", () => {
   beforeEach(() => {
@@ -69,5 +73,18 @@ describe("FileReaderRegistry", () => {
 
     const xmlConfig: Configuration = { file: "/project/data.xml" };
     expect(() => FileReaderRegistry.getFileReader(xmlConfig)).toThrow(ConfigurationError);
+  });
+
+  it.each([
+    ["js", JsFileReader],
+    ["mjs", JsFileReader],
+    ["ts", TsFileReader],
+    ["mts", TsFileReader],
+    ["yaml", YamlFileReader],
+    ["yml", YamlFileReader],
+    ["strings", StringsFileReader],
+  ])("should return the default reader for .%s files", (extension, expected) => {
+    const config: Configuration = { file: `/project/en.${extension}` };
+    expect(FileReaderRegistry.getFileReader(config)).toBeInstanceOf(expected);
   });
 });

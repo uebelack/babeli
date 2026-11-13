@@ -207,4 +207,20 @@ describe("JsonFileReader", () => {
       expect(result.nested).toBeUndefined();
     });
   });
+
+  it("should ignore non-object values in nested multi language files", () => {
+    const filePath = path.join(tmpDir, "multi.json");
+    fs.writeFileSync(
+      filePath,
+      JSON.stringify({ version: "1", button: { yes: { en: "Yes", de: "Ja" } } }),
+    );
+
+    const result = new JsonFileReader({}).readMultiLanguageFile(filePath);
+
+    expect(result.nested).toBe(true);
+    expect(result.translations).toEqual([
+      { language: "en", key: "button.yes", value: "Yes" },
+      { language: "de", key: "button.yes", value: "Ja" },
+    ]);
+  });
 });

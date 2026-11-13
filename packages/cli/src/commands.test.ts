@@ -2,7 +2,8 @@ import * as fs from "fs";
 import * as os from "os";
 import * as path from "path";
 import { validate, update } from "./commands";
-import { ChatModelFactory, ActionRegistry } from "@babeli/core";
+import { Babeli, ChatModelFactory, ActionRegistry } from "@babeli/core";
+import * as p from "@clack/prompts";
 
 // Silence @clack/prompts output during tests
 vi.mock("@clack/prompts", () => ({
@@ -175,5 +176,22 @@ describe("commands", () => {
       const code = await validate({});
       expect(code).toBe(0);
     });
+  });
+
+  it.each([
+    ["validate", validate],
+    ["update", update],
+  ] as const)("should report non-Error failures of %s", async (method, command) => {
+    const error = vi.spyOn(p.log, "error");
+    const spy = vi.spyOn(Babeli, method).mockRejectedValue("boom");
+
+    try {
+      const code = await command({ files: ["translations.json"], actions: "sort" });
+      expect(code).toBe(1);
+      expect(error).toHaveBeenCalledWith("boom");
+    } finally {
+      spy.mockRestore();
+      error.mockRestore();
+    }
   });
 });

@@ -238,4 +238,59 @@ describe("MissingAction", () => {
       expect(deOrphan).toBeDefined();
     });
   });
+
+  describe("defaults and reference languages", () => {
+    function registerModel(invoke: (messages: unknown[]) => Promise<AIMessage>) {
+      ChatModelFactory.registerProvider("test", {
+        create: () => ({ invoke }) as unknown as BaseChatModel,
+      });
+    }
+
+    it("should use en as base language and the current directory when not configured", async () => {
+      const messages: string[] = [];
+      registerModel(async () => new AIMessage("Tschüss"));
+      const action = new MissingAction({
+        modelProvider: "test",
+        loggingProvider: {
+          debug: () => {},
+          info: (msg) => messages.push(msg),
+          warn: () => {},
+          error: () => {},
+        },
+      });
+
+      const file: MultiLanguageTranslationFile = {
+        file: "multi.json",
+        translations: [
+          { language: "en", key: "bye", value: "Bye" },
+          { language: "de", key: "hello", value: "Hallo" },
+          { language: "en", key: "hello", value: "Hello" },
+        ],
+      };
+
+      expect(action.validateMultiLanguageFile(file)[0]!.message).toContain("in file 'multi.json'");
+      const result = await action.updateMultiLanguageFile(file);
+
+      expect(result.translations).toContainEqual({ language: "de", key: "bye", value: "Tschüss" });
+      expect(messages[0]).toContain("in file 'multi.json'");
+    });
+
+    it("should translate a missing base language value from another language", async () => {
+      const invoke = vi.fn<() => Promise<AIMessage>>(async () => new AIMessage("Bye"));
+      registerModel(invoke);
+      const action = new MissingAction(createSilentConfig({ workingDirectory: undefined }));
+
+      const [en] = await action.updateSingleLanguageFiles([
+        { language: "en", file: "en.json", translations: [] },
+        {
+          language: "de",
+          file: "de.json",
+          translations: [{ language: "de", key: "bye", value: "Tschüss" }],
+        },
+      ]);
+
+      expect(en!.translations).toEqual([{ language: "en", key: "bye", value: "Bye" }]);
+      expect(invoke).toHaveBeenCalledTimes(1);
+    });
+  });
 });

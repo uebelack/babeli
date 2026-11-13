@@ -143,4 +143,27 @@ describe("JsFileReader", () => {
       );
     });
   });
+
+  describe("module resolution", () => {
+    it("should resolve relative paths against the current working directory", async () => {
+      fs.writeFileSync(path.join(tmpDir, "en.mjs"), 'export default { greeting: "Hello" };\n');
+      const cwd = vi.spyOn(process, "cwd").mockReturnValue(tmpDir);
+
+      try {
+        const result = await new JsFileReader().readSingleLanguageFile("en", "en.mjs");
+        expect(result.translations).toEqual([{ language: "en", key: "greeting", value: "Hello" }]);
+      } finally {
+        cwd.mockRestore();
+      }
+    });
+
+    it("should use named exports when there is no default export", async () => {
+      const filePath = path.join(tmpDir, "named.mjs");
+      fs.writeFileSync(filePath, 'export const greeting = "Hello";\n');
+
+      const result = await new JsFileReader().readSingleLanguageFile("en", filePath);
+
+      expect(result.translations).toEqual([{ language: "en", key: "greeting", value: "Hello" }]);
+    });
+  });
 });

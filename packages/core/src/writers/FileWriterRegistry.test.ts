@@ -2,6 +2,10 @@ import { FileWriterRegistry } from "./FileWriterRegistry";
 import { JsonFileWriter } from "./JsonFileWriter";
 import { ConfigurationError } from "../errors/ConfigurationError";
 import type { Configuration } from "../Configuration";
+import { JsFileWriter } from "./JsFileWriter";
+import { TsFileWriter } from "./TsFileWriter";
+import { YamlFileWriter } from "./YamlFileWriter";
+import { StringsFileWriter } from "./StringsFileWriter";
 
 describe("FileWriterRegistry", () => {
   beforeEach(() => {
@@ -61,5 +65,18 @@ describe("FileWriterRegistry", () => {
 
     const xmlConfig: Configuration = { file: "/project/data.xml" };
     expect(() => FileWriterRegistry.getFileWriter(xmlConfig)).toThrow(ConfigurationError);
+  });
+
+  it.each([
+    ["js", JsFileWriter],
+    ["mjs", JsFileWriter],
+    ["ts", TsFileWriter],
+    ["mts", TsFileWriter],
+    ["yaml", YamlFileWriter],
+    ["yml", YamlFileWriter],
+    ["strings", StringsFileWriter],
+  ])("should return the default writer for .%s files", (extension, expected) => {
+    const config: Configuration = { file: `/project/en.${extension}` };
+    expect(FileWriterRegistry.getFileWriter(config)).toBeInstanceOf(expected);
   });
 });

@@ -82,7 +82,6 @@ export class JsonFileReader implements FileReader {
 
       return { language, file: filePath, translations, nested };
     } catch (e) {
-      if (e instanceof FileReaderError) throw e;
       throw new FileReaderError(filePath, e);
     }
   }
@@ -113,7 +112,6 @@ export class JsonFileReader implements FileReader {
       const translations = Translations.fromKeyLanguageMap(keyLanguageMap);
       return { file: filePath, translations: translations.getTranslations() };
     } catch (e) {
-      if (e instanceof FileReaderError) throw e;
       throw new FileReaderError(filePath, e);
     }
   }

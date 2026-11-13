@@ -73,7 +73,6 @@ export class JsFileWriter implements FileWriter {
       const source = toJsSource(obj);
       fs.writeFileSync(file.file, source, this.configuration.charset ?? "utf-8");
     } catch (e) {
-      if (e instanceof FileWriterError) throw e;
       throw new FileWriterError(file.file, e);
     }
   }
@@ -97,7 +96,6 @@ export class JsFileWriter implements FileWriter {
       const source = toJsSource(obj);
       fs.writeFileSync(file.file, source, this.configuration.charset ?? "utf-8");
     } catch (e) {
-      if (e instanceof FileWriterError) throw e;
       throw new FileWriterError(file.file, e);
     }
   }

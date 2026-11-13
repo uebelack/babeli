@@ -48,7 +48,6 @@ export class JsonFileWriter implements FileWriter {
       const json = JSON.stringify(obj, null, 2);
       fs.writeFileSync(file.file, json, this.configuration.charset ?? "utf-8");
     } catch (e) {
-      if (e instanceof FileWriterError) throw e;
       throw new FileWriterError(file.file, e);
     }
   }
@@ -76,7 +75,6 @@ export class JsonFileWriter implements FileWriter {
         fs.writeFileSync(file.file, json, this.configuration.charset ?? "utf-8");
       }
     } catch (e) {
-      if (e instanceof FileWriterError) throw e;
       throw new FileWriterError(file.file, e);
     }
   }

@@ -49,7 +49,6 @@ export class YamlFileReader implements FileReader {
 
       return { language, file: filePath, translations, nested };
     } catch (e) {
-      if (e instanceof FileReaderError) throw e;
       throw new FileReaderError(filePath, e);
     }
   }
@@ -77,7 +76,6 @@ export class YamlFileReader implements FileReader {
 
       return { file: filePath, translations, nested };
     } catch (e) {
-      if (e instanceof FileReaderError) throw e;
       throw new FileReaderError(filePath, e);
     }
   }

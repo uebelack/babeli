@@ -37,7 +37,6 @@ export class StringsFileReader implements FileReader {
 
       return { language, file: filePath, translations };
     } catch (e) {
-      if (e instanceof FileReaderError) throw e;
       throw new FileReaderError(filePath, e);
     }
   }

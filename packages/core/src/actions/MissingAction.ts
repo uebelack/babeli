@@ -151,18 +151,10 @@ export class MissingAction implements Action {
       }
     }
 
-    const translationsMap = translations.getTranslationsMapForKey(key);
-    const referenceLanguage = [...translationsMap!.keys()].find((l) => l !== language);
-
-    if (!referenceLanguage) {
-      throw new Error("No other translation found for key " + key);
-    }
-
-    const referenceValue = translations.getTranslation(key, referenceLanguage);
-
-    if (referenceValue === undefined) {
-      throw new Error("No translation found for key " + key + " and language " + referenceLanguage);
-    }
+    // A key is only missing for a language if it exists in at least one other language.
+    const [referenceLanguage, referenceValue] = [
+      ...translations.getTranslationsMapForKey(key)!,
+    ].find(([l]) => l !== language)!;
 
     return translationService.translate(referenceValue, referenceLanguage, language);
   }

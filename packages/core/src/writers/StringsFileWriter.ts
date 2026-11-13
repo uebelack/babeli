@@ -33,7 +33,6 @@ export class StringsFileWriter implements FileWriter {
       const content = lines.join("\n\n") + "\n";
       fs.writeFileSync(file.file, content, this.configuration.charset ?? "utf-8");
     } catch (e) {
-      if (e instanceof FileWriterError) throw e;
       throw new FileWriterError(file.file, e);
     }
   }

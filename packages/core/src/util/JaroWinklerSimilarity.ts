@@ -4,8 +4,8 @@ export function jaroWinklerSimilarity(s1: string, s2: string): number {
 
   const matchDistance = Math.floor(Math.max(s1.length, s2.length) / 2) - 1;
 
-  const s1Matches = new Array<boolean>(s1.length).fill(false);
-  const s2Matches = new Array<boolean>(s2.length).fill(false);
+  const s1Matches = Array.from({ length: s1.length }, () => false);
+  const s2Matches = Array.from({ length: s2.length }, () => false);
 
   let matches = 0;
   let transpositions = 0;

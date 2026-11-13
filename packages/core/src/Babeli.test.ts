@@ -190,8 +190,7 @@ describe("Babeli", () => {
         loggingProvider: createSilentLoggingProvider(),
       };
 
-      await Babeli.update(config);
-      // Should not throw since it's skipped
+      await expect(Babeli.update(config)).resolves.toBeUndefined();
     });
 
     it("should skip when config.skip is true", async () => {
@@ -201,7 +200,7 @@ describe("Babeli", () => {
         loggingProvider: createSilentLoggingProvider(),
       };
 
-      await Babeli.update(config);
+      await expect(Babeli.update(config)).resolves.toBeUndefined();
     });
 
     it("should warn and skip when no model provider is configured", async () => {

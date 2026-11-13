@@ -12,8 +12,10 @@ AI-powered translation management. Validate, sort, and automatically generate mi
 
 ## Quick Start
 
+Requires Node.js 24 or later.
+
 ```bash
-pnpm add @babeli/cli @babeli/anthropic
+pnpm add -D @babeli/cli @babeli/anthropic
 ```
 
 ```bash
@@ -63,9 +65,12 @@ See the [`@babeli/core` README](./packages/core) for programmatic usage and exte
 
 ```bash
 pnpm install
-pnpm run test
+pnpm test
 pnpm run lint:check
 pnpm run format:check
+pnpm run typecheck
+pnpm run build
+pnpm run integration   # runs the built CLI against packages/example
 ```
 
 ## License

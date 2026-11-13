@@ -1,3 +1,6 @@
+import * as fs from "fs";
+import * as os from "os";
+import * as path from "path";
 import { ChatModelFactory, extractProvider } from "./ChatModelFactory";
 import { ConfigurationError } from "../errors/ConfigurationError";
 import type { BaseChatModel } from "@langchain/core/language_models/chat_models";
@@ -85,13 +88,31 @@ describe("ChatModelFactory", () => {
   });
 
   it("should dynamically load a provider package when not registered", async () => {
-    const config: Configuration = {
-      modelProvider: "anthropic",
-      apiKey: "test-key",
-    };
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "babeli-provider-test-"));
+    const pkgDir = path.join(dir, "node_modules", "@babeli", "fixture");
+    fs.mkdirSync(pkgDir, { recursive: true });
+    fs.writeFileSync(
+      path.join(pkgDir, "package.json"),
+      JSON.stringify({
+        name: "@babeli/fixture",
+        type: "module",
+        main: "index.js",
+      }),
+    );
+    fs.writeFileSync(
+      path.join(pkgDir, "index.js"),
+      "export class FixtureChatModelProvider { create() { return { fixture: true }; } }\n",
+    );
+    const cwd = jest.spyOn(process, "cwd").mockReturnValue(dir);
 
-    const result = await ChatModelFactory.createChatModel(config);
-    expect(result).toBeDefined();
+    try {
+      const config: Configuration = { modelProvider: "fixture" };
+      const result = await ChatModelFactory.createChatModel(config);
+      expect(result).toEqual({ fixture: true });
+    } finally {
+      cwd.mockRestore();
+      fs.rmSync(dir, { recursive: true, force: true });
+    }
   });
 
   it("should clear cached model and providers on reset", async () => {

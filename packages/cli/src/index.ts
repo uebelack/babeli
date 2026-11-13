@@ -5,7 +5,7 @@ const sharedOptions = {
   files: {
     alias: "f",
     type: "string" as const,
-    array: true,
+    array: true as const,
     description:
       "Translation files. If multiple files, prefix each with language, e.g.: de:values_de.json",
   },

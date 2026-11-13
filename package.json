@@ -9,7 +9,8 @@
     "lint:check": "oxlint",
     "lint:fix": "oxlint --fix",
     "test": "vitest run",
-    "format:write": "oxfmt ."
+    "format:write": "oxfmt .",
+    "typecheck": "pnpm -r typecheck"
   },
   "devDependencies": {
     "@types/node": "^24.19.2",

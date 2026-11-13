@@ -15,7 +15,8 @@
     }
   },
   "scripts": {
-    "build": "bun build src/main.ts --outdir dist --target node"
+    "build": "bun build src/main.ts --outdir dist --target node",
+    "typecheck": "tsc"
   },
   "dependencies": {
     "@babeli/core": "workspace:*",

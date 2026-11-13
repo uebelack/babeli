@@ -14,7 +14,7 @@ export class AnthropicChatModelProvider implements ChatModelProvider {
       );
     }
 
-    const model = process.env.BABELI_MODEL ?? configuration.model ?? "claude-sonnet-4-20250514";
+    const model = process.env.BABELI_MODEL ?? configuration.model ?? "claude-sonnet-5-5";
 
     return new ChatAnthropic({
       anthropicApiKey: apiKey,

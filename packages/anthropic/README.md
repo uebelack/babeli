@@ -34,10 +34,10 @@ ChatModelFactory.registerProvider("anthropic", new AnthropicChatModelProvider())
 
 ## Configuration
 
-| Setting | Environment Variable                              | Default                    |
-| ------- | ------------------------------------------------- | -------------------------- |
-| API Key | `BABELI_ANTHROPIC_API_KEY` or `ANTHROPIC_API_KEY` | (required)                 |
-| Model   | `BABELI_MODEL`                                    | `claude-sonnet-4-20250514` |
+| Setting | Environment Variable                              | Default             |
+| ------- | ------------------------------------------------- | ------------------- |
+| API Key | `BABELI_ANTHROPIC_API_KEY` or `ANTHROPIC_API_KEY` | (required)          |
+| Model   | `BABELI_MODEL`                                    | `claude-sonnet-5-5` |
 
 ## License
 
